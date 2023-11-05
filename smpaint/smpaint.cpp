@@ -7,7 +7,7 @@ Smpaint::Smpaint(QWidget* parent) : QMainWindow(parent) {
     setCentralWidget(mainWidget);
     mainWidget->setObjectName("mainWidget");
     setCentralWidget(mainWidget);
-    mainWidget->setupUi(this);
+    mainWidget->setupUi(this, 1000, 550);
 }
 
 Smpaint::~Smpaint() {
