@@ -8,8 +8,11 @@ class MainWidget : public QWidget {
 public:
     MainWidget(QWidget* parent = nullptr);
     void setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowHeight);
+    static MainWidget* getInstance();
 
 private:
+    static MainWidget* instance;
+
     QMenuBar* menuBar = nullptr;
     QMenu* menuFile = nullptr;
     QAction* openAction = nullptr;

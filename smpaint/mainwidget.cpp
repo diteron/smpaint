@@ -3,6 +3,8 @@
 
 MainWidget::MainWidget(QWidget* parent) : QWidget(parent) {};
 
+MainWidget* MainWidget::instance = nullptr;
+
 void MainWidget::setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowHeight) {
     if (SmpaintClass->objectName().isEmpty()) {
         SmpaintClass->setObjectName("SmpaintClass");
@@ -26,6 +28,13 @@ void MainWidget::setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowH
     addSubmenuAction(menuFile, &saveAction, "saveAction",
                      SmpaintClass, "SmpaintClass", "Save", "Ctrl+S");
 
+}
+
+MainWidget* MainWidget::getInstance() {
+    if (instance == nullptr) {
+        instance = new MainWidget();
+    }
+    return instance;
 }
 
 void MainWidget::createGridLayout() {
