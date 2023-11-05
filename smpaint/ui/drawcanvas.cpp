@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "drawcanvas.h"
 
+DrawCanvas::DrawCanvas(QWidget* parent) : QWidget(parent) {}
+
 void DrawCanvas::setSize(QSizePolicy &sizePolicy, const QSize &minSize, const QSize &baseSize) {
     this->setSizePolicy(sizePolicy);
     this->setMinimumSize(minSize);
