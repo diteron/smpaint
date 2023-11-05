@@ -103,9 +103,9 @@
     <ClCompile Include="mainwidget.cpp" />
     <ClCompile Include="ui\drawcanvas.cpp" />
     <ClCompile Include="ui\sidebar.cpp" />
-    <ClInclude Include="mainwidget.h" />
-    <ClInclude Include="ui\drawcanvas.h" />
-    <ClInclude Include="ui\sidebar.h" />
+    <QtMoc Include="mainwidget.h" />
+    <QtMoc Include="ui\drawcanvas.h" />
+    <QtMoc Include="ui\sidebar.h" />
     <ClInclude Include="smpaint.h" />
     <ClInclude Include="ui\stdafx.h" />
     <QtRcc Include="smpaint.qrc" />

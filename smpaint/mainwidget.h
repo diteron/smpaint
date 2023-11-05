@@ -5,6 +5,9 @@
 #include "ui/sidebar.h"
 
 class MainWidget : public QWidget {
+
+    Q_OBJECT
+
 public:
     MainWidget(QWidget* parent = nullptr);
     void setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowHeight);

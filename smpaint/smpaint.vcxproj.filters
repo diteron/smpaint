@@ -57,23 +57,25 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ui\sidebar.h">
-      <Filter>Header Files\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="ui\drawcanvas.h">
-      <Filter>Header Files\ui</Filter>
-    </ClInclude>
     <ClInclude Include="ui\stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Header Files\ui</Filter>
     </ClInclude>
-    <ClInclude Include="mainwidget.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="smpaint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="mainwidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ui\sidebar.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="ui\drawcanvas.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
   </ItemGroup>
 </Project>

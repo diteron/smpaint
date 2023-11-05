@@ -1,5 +1,10 @@
 #pragma once
 
-class SideBar {
+#include <qwidget.h>
+
+class SideBar : QVBoxLayout {
+
+    Q_OBJECT
+
 
 };
