@@ -101,12 +101,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="mainwidget.cpp" />
+    <ClCompile Include="shapes\point.cpp" />
+    <ClCompile Include="shapes\shape.cpp" />
     <ClCompile Include="ui\drawcanvas.cpp" />
     <ClCompile Include="ui\sidebar.cpp" />
     <QtMoc Include="mainwidget.h" />
     <QtMoc Include="ui\drawcanvas.h" />
     <QtMoc Include="ui\sidebar.h" />
+    <ClInclude Include="shapes\field.h" />
+    <ClInclude Include="shapes\point.h" />
+    <ClInclude Include="shapes\shape.h" />
     <ClInclude Include="smpaint.h" />
+    <ClInclude Include="shapes\stdafx.h" />
     <ClInclude Include="ui\stdafx.h" />
     <QtRcc Include="smpaint.qrc" />
     <QtUic Include="smpaint.ui" />

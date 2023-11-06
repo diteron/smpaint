@@ -27,6 +27,18 @@
     <Filter Include="Header Files\ui">
       <UniqueIdentifier>{abf8525a-da3b-4f58-ac21-5233334f89ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\shapes">
+      <UniqueIdentifier>{fc7bbff1-cd5a-4369-a748-6553b4e31a15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\shapes">
+      <UniqueIdentifier>{6071dcf9-9ddc-466f-bb36-edc21ed682d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\core">
+      <UniqueIdentifier>{46573a76-7985-48a9-ad8c-e4e8541a4ec3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\core">
+      <UniqueIdentifier>{e04f1421-5798-4b81-8987-1c889d7a71a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="smpaint.qrc">
@@ -35,47 +47,65 @@
     <QtUic Include="smpaint.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ui\sidebar.cpp">
       <Filter>Source Files\ui</Filter>
     </ClCompile>
     <ClCompile Include="ui\drawcanvas.cpp">
       <Filter>Source Files\ui</Filter>
     </ClCompile>
-    <ClCompile Include="mainwidget.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="shapes\shape.cpp">
+      <Filter>Source Files\shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files\core</Filter>
     </ClCompile>
     <ClCompile Include="smpaint.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="mainwidget.cpp">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="shapes\point.cpp">
+      <Filter>Source Files\shapes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ui\stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Header Files\ui</Filter>
     </ClInclude>
+    <ClInclude Include="shapes\shape.h">
+      <Filter>Header Files\shapes</Filter>
+    </ClInclude>
     <ClInclude Include="smpaint.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\stdafx.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="shapes\stdafx.h">
+      <Filter>Header Files\shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="shapes\point.h">
+      <Filter>Header Files\shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="shapes\field.h">
+      <Filter>Header Files\shapes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="mainwidget.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="ui\sidebar.h">
       <Filter>Header Files\ui</Filter>
     </QtMoc>
     <QtMoc Include="ui\drawcanvas.h">
       <Filter>Header Files\ui</Filter>
+    </QtMoc>
+    <QtMoc Include="mainwidget.h">
+      <Filter>Header Files\core</Filter>
     </QtMoc>
   </ItemGroup>
 </Project>

@@ -29,8 +29,8 @@ private:
     SideBar* sideBar = nullptr;
 
     QGridLayout* createGridLayout();
-    DrawCanvas* createDrawCanvas(const QRect& startGeometry, const QSize& minSize, // TODO: Change function return value to DrawCanvas*
-                          const QColor& backgroundColor);
+    DrawCanvas* createDrawCanvas(const QRect& startGeometry, const QSize& minSize,
+                                 const QColor& backgroundColor);
     QSizePolicy createExpandSizePolicy(int horizontalStretch, int verticalStretch);
     QPalette createPalette(const QColor& backgroundColor);
     QMenuBar* createMenuBar(QMainWindow* SmpaintClass);
