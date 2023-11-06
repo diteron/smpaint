@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "drawcanvas.h"
 
+// TODO: Change the constructor so that in the mainwidget, functionality of the createDrawCanvas function
+// should be implemented in a new constructor 
 DrawCanvas::DrawCanvas(QWidget* parent) : QWidget(parent) {}
 
 void DrawCanvas::setSize(QSizePolicy &sizePolicy, const QSize &minSize, const QSize &baseSize) {

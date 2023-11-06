@@ -28,6 +28,8 @@ void MainWidget::setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowH
     addSubmenuAction(menuFile, &saveAction, "saveAction",
                      SmpaintClass, "SmpaintClass", "Save", "Ctrl+S");
 
+    sideBar = new SideBar(getInstance());
+    gridLayout->addLayout(sideBar, 0, 0, 1, 1);
 }
 
 MainWidget* MainWidget::getInstance() {
@@ -43,12 +45,13 @@ void MainWidget::createGridLayout() {
     gridLayout->setContentsMargins(11, 11, 11, 11);
     gridLayout->setObjectName("gridLayout");
     gridLayout->setSizeConstraint(QLayout::SetMinAndMaxSize);
+    gridLayout->setColumnStretch(0, 1);
     gridLayout->setColumnStretch(1, 5);
 }
 
 void MainWidget::createDrawCanvas(const QRect& startGeometry, const QSize& minSize,
                                   const QColor& backgroundColor) {
-    drawCanvas = new DrawCanvas();
+    drawCanvas = new DrawCanvas(getInstance());
     drawCanvas->setObjectName("drawCanvas");
     drawCanvas->setGeometry(startGeometry);
 
@@ -58,6 +61,7 @@ void MainWidget::createDrawCanvas(const QRect& startGeometry, const QSize& minSi
     sizePolicy.setHeightForWidth(this->sizePolicy().hasHeightForWidth());
     drawCanvas->setSize(sizePolicy, minSize, QSize(0, 0));
 
+    // TODO: Refactor creation of palette into a separate function
     QPalette palette;
     QBrush brush(backgroundColor);
     brush.setStyle(Qt::SolidPattern);

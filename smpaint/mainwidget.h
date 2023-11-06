@@ -29,7 +29,7 @@ private:
     SideBar* sideBar = nullptr;
 
     void createGridLayout();
-    void createDrawCanvas(const QRect& startGeometry, const QSize& minSize,
+    void createDrawCanvas(const QRect& startGeometry, const QSize& minSize, // TODO: Change function return value to DrawCanvas*
                           const QColor& backgroundColor);
     void createMenuBar(QMainWindow* SmpaintClass);
     void addMenuBarSubmenu(QMenu** submenu, const char* submenuName,
