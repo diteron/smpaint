@@ -1,17 +1,22 @@
 #include "stdafx.h"
 #include "drawcanvas.h"
 
-// TODO: Change the constructor so that in the mainwidget, functionality of the createDrawCanvas function
-// should be implemented in a new constructor 
-DrawCanvas::DrawCanvas(QWidget* parent) : QWidget(parent) {}
+DrawCanvas::DrawCanvas(QWidget* parent, const QRect& startGeometry,
+                       const QSizePolicy& sizePolicy, const QSize& minSize,
+                       const QPalette& backgroundColor) : QWidget(parent) {
+    this->setObjectName("drawCanvas");
+    this->setGeometry(startGeometry);
+    this->setSize(sizePolicy, minSize, QSize(0, 0));
+    this->setBackgroundColor(backgroundColor);
+}
 
-void DrawCanvas::setSize(QSizePolicy &sizePolicy, const QSize &minSize, const QSize &baseSize) {
+void DrawCanvas::setSize(const QSizePolicy &sizePolicy, const QSize &minSize, const QSize &baseSize) {
     this->setSizePolicy(sizePolicy);
     this->setMinimumSize(minSize);
     this->setBaseSize(baseSize);
 }
 
-void DrawCanvas::setBackgroundColor(QPalette &palette) {
+void DrawCanvas::setBackgroundColor(const QPalette &palette) {
     this->setPalette(palette);
 }
 

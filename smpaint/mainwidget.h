@@ -28,11 +28,13 @@ private:
 
     SideBar* sideBar = nullptr;
 
-    void createGridLayout();
-    void createDrawCanvas(const QRect& startGeometry, const QSize& minSize, // TODO: Change function return value to DrawCanvas*
+    QGridLayout* createGridLayout();
+    DrawCanvas* createDrawCanvas(const QRect& startGeometry, const QSize& minSize, // TODO: Change function return value to DrawCanvas*
                           const QColor& backgroundColor);
-    void createMenuBar(QMainWindow* SmpaintClass);
-    void addMenuBarSubmenu(QMenu** submenu, const char* submenuName,
+    QSizePolicy createExpandSizePolicy(int horizontalStretch, int verticalStretch);
+    QPalette createPalette(const QColor& backgroundColor);
+    QMenuBar* createMenuBar(QMainWindow* SmpaintClass);
+    void addMenuBarSubmenu(QMenuBar* menuBar, QMenu** submenu, const char* submenuName,
                            const char* title, const char* parentName);
     void addSubmenuAction(QMenu* submenu, QAction** action, const char* actionName,
                           QWidget* parent, const char* parentName,

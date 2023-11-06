@@ -12,17 +12,18 @@ void MainWidget::setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowH
     SmpaintClass->resize(windowWidth, windowHeight);
     SmpaintClass->setMinimumSize(QSize(0, 0));
 
+    // Create a resizable draw canvas with scrollbars
     scrollArea = new QScrollArea(this);
-    createDrawCanvas(QRect(0, 0, 1000, 565), QSize(100, 50),
-                     QColor(255, 255, 255, 255));
-    scrollArea->setWidget(drawCanvas);
+    drawCanvas = createDrawCanvas(QRect(0, 0, 1000, 565), QSize(100, 50),
+                                  QColor(255, 255, 255, 255));
+    scrollArea->setWidget(drawCanvas); 
     drawCanvas->setResizable();
 
-    createGridLayout();
+    gridLayout = createGridLayout();
     gridLayout->addWidget(scrollArea, 0, 1, 1, 1);
 
-    createMenuBar(SmpaintClass);
-    addMenuBarSubmenu(&menuFile, "menuFile", "File", "SmpaintClass");
+    menuBar = createMenuBar(SmpaintClass);
+    addMenuBarSubmenu(menuBar, &menuFile, "menuFile", "File", "SmpaintClass");
     addSubmenuAction(menuFile, &openAction, "openAction",
                      SmpaintClass, "SmpaintClass", "Open", "Ctrl+O");
     addSubmenuAction(menuFile, &saveAction, "saveAction",
@@ -39,29 +40,35 @@ MainWidget* MainWidget::getInstance() {
     return instance;
 }
 
-void MainWidget::createGridLayout() {
-    gridLayout = new QGridLayout(this);
-    gridLayout->setSpacing(6);
-    gridLayout->setContentsMargins(11, 11, 11, 11);
-    gridLayout->setObjectName("gridLayout");
-    gridLayout->setSizeConstraint(QLayout::SetMinAndMaxSize);
-    gridLayout->setColumnStretch(0, 1);
-    gridLayout->setColumnStretch(1, 5);
+QGridLayout* MainWidget::createGridLayout() {
+    QGridLayout* layout = new QGridLayout(this);
+    layout->setSpacing(6);
+    layout->setContentsMargins(11, 11, 11, 11);
+    layout->setObjectName("gridLayout");
+    layout->setSizeConstraint(QLayout::SetMinAndMaxSize);
+    layout->setColumnStretch(0, 1);
+    layout->setColumnStretch(1, 5);
+    return layout;
 }
 
-void MainWidget::createDrawCanvas(const QRect& startGeometry, const QSize& minSize,
-                                  const QColor& backgroundColor) {
-    drawCanvas = new DrawCanvas(getInstance());
-    drawCanvas->setObjectName("drawCanvas");
-    drawCanvas->setGeometry(startGeometry);
+DrawCanvas* MainWidget::createDrawCanvas(const QRect& startGeometry, const QSize& minSize,
+                                         const QColor& backgroundColor) {
+    DrawCanvas* canvas;
+    QSizePolicy sizePolicy = createExpandSizePolicy(100, 0);
+    QPalette backgroundPalette = createPalette(backgroundColor);
+    canvas = new DrawCanvas(getInstance(), startGeometry, sizePolicy, minSize, backgroundPalette);
+    return canvas;
+}
 
+QSizePolicy MainWidget::createExpandSizePolicy(int horizontalStretch, int verticalStretch) {
     QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    sizePolicy.setHorizontalStretch(100);
-    sizePolicy.setVerticalStretch(0);
+    sizePolicy.setHorizontalStretch(horizontalStretch);
+    sizePolicy.setVerticalStretch(verticalStretch);
     sizePolicy.setHeightForWidth(this->sizePolicy().hasHeightForWidth());
-    drawCanvas->setSize(sizePolicy, minSize, QSize(0, 0));
+    return sizePolicy;
+}
 
-    // TODO: Refactor creation of palette into a separate function
+QPalette MainWidget::createPalette(const QColor& backgroundColor) {
     QPalette palette;
     QBrush brush(backgroundColor);
     brush.setStyle(Qt::SolidPattern);
@@ -69,17 +76,18 @@ void MainWidget::createDrawCanvas(const QRect& startGeometry, const QSize& minSi
     palette.setBrush(QPalette::Inactive, QPalette::Window, brush);
     palette.setBrush(QPalette::Disabled, QPalette::Base, brush);
     palette.setBrush(QPalette::Disabled, QPalette::Window, brush);
-    drawCanvas->setBackgroundColor(palette);
+    return palette;
 }
 
-void MainWidget::createMenuBar(QMainWindow* SmpaintClass) {
-    menuBar = new QMenuBar(SmpaintClass);
-    menuBar->setObjectName("menuBar");
-    menuBar->setGeometry(QRect(0, 0, SmpaintClass->width(), 22));
-    SmpaintClass->setMenuBar(menuBar);
+QMenuBar* MainWidget::createMenuBar(QMainWindow* SmpaintClass) {
+    QMenuBar* menu = new QMenuBar(SmpaintClass);
+    menu->setObjectName("menuBar");
+    menu->setGeometry(QRect(0, 0, SmpaintClass->width(), 22));
+    SmpaintClass->setMenuBar(menu);
+    return menu;
 }
 
-void MainWidget::addMenuBarSubmenu(QMenu** submenu, const char* submenuName,
+void MainWidget::addMenuBarSubmenu(QMenuBar* menuBar, QMenu** submenu, const char* submenuName,
                                    const char* title, const char* parentName) {
     *submenu = new QMenu(menuBar);
     (*submenu)->setObjectName(submenuName);
