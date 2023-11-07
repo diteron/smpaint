@@ -108,7 +108,7 @@
     <QtMoc Include="mainwidget.h" />
     <QtMoc Include="ui\drawcanvas.h" />
     <QtMoc Include="ui\sidebar.h" />
-    <ClInclude Include="shapes\field.h" />
+    <ClInclude Include="shapes\datafield.h" />
     <ClInclude Include="shapes\point.h" />
     <ClInclude Include="shapes\shape.h" />
     <ClInclude Include="smpaint.h" />

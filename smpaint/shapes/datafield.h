@@ -1,8 +1,8 @@
 #pragma once
 
-class Field {
+class dataField {
 public:
-    Field(const char* labelText, int defaultValue, int maxValue)
+    dataField(const char* labelText, int defaultValue, int maxValue)
         : _labelText(labelText), _defaultValue(defaultValue), _maxValue(maxValue) {};
     const char* getLabelText() { return _labelText; };
     int getDefaultValue() { return _defaultValue; };
