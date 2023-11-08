@@ -100,7 +100,9 @@
     </QtMoc>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="shapes\isosctriangle.cpp" />
     <ClCompile Include="mainwidget.cpp" />
+    <ClCompile Include="shapes\shapefactory.cpp" />
     <ClCompile Include="shapes\point.cpp" />
     <ClCompile Include="shapes\shape.cpp" />
     <ClCompile Include="ui\drawcanvas.cpp" />
@@ -108,9 +110,11 @@
     <QtMoc Include="mainwidget.h" />
     <QtMoc Include="ui\drawcanvas.h" />
     <QtMoc Include="ui\sidebar.h" />
-    <ClInclude Include="shapes\datafield.h" />
+    <ClInclude Include="shapes\isosctriangle.h" />
+    <ClInclude Include="shapes\shapefactory.h" />
     <ClInclude Include="shapes\point.h" />
     <ClInclude Include="shapes\shape.h" />
+    <ClInclude Include="shapes\shapes.h" />
     <ClInclude Include="smpaint.h" />
     <ClInclude Include="shapes\stdafx.h" />
     <ClInclude Include="ui\stdafx.h" />

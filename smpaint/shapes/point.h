@@ -4,16 +4,17 @@
 
 class Point : public QPoint {
 public:
+    Point();
     Point(int xPos, int yPos);
     Point(int xPos, int yPos, bool isEndPoint);
-    Point(QPoint point) : endPoint(false) {
+    Point(QPoint point) : _endPoint(false) {
         this->setX(point.x());
         this->setY(point.y());
     };
 
-    void setAsEndPoint();
+    Point& setAsEndPoint();
     bool isEndPoint();
 
 private:
-    bool endPoint = false;
+    bool _endPoint = false;
 };

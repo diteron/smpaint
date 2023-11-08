@@ -1,11 +1,13 @@
 #include "stdafx.h"
 #include "point.h"
 
+Point::Point() {}
+
 Point::Point(int xPos, int yPos) : QPoint(xPos, yPos) {}
 
 Point::Point(int xPos, int yPos, bool isEndPoint) 
-    : QPoint(xPos, yPos), endPoint(isEndPoint) {}
+    : QPoint(xPos, yPos), _endPoint(isEndPoint) {}
 
-void Point::setAsEndPoint() { endPoint = true; }
+Point& Point::setAsEndPoint() { _endPoint = true; }
 
-bool Point::isEndPoint() { return endPoint; }
+bool Point::isEndPoint() { return _endPoint; }

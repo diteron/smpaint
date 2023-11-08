@@ -3,6 +3,7 @@
 #include <qwidget.h>
 #include "ui/drawcanvas.h"
 #include "ui/sidebar.h"
+#include "shapes/shapes.h"
 
 class MainWidget : public QWidget {
 
@@ -11,7 +12,7 @@ class MainWidget : public QWidget {
 public:
     MainWidget(QWidget* parent = nullptr);
     void setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowHeight);
-    static MainWidget* getInstance();
+    static MainWidget* getMainWidget();
 
 private:
     static MainWidget* instance;

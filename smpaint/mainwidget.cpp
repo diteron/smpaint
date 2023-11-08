@@ -29,11 +29,11 @@ void MainWidget::setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowH
     addSubmenuAction(menuFile, &saveAction, "saveAction",
                      SmpaintClass, "SmpaintClass", "Save", "Ctrl+S");
 
-    sideBar = new SideBar(getInstance());
+    sideBar = new SideBar(getMainWidget());
     gridLayout->addLayout(sideBar, 0, 0, 1, 1);
 }
 
-MainWidget* MainWidget::getInstance() {
+MainWidget* MainWidget::getMainWidget() {
     if (instance == nullptr) {
         instance = new MainWidget();
     }
@@ -56,7 +56,7 @@ DrawCanvas* MainWidget::createDrawCanvas(const QRect& startGeometry, const QSize
     DrawCanvas* canvas;
     QSizePolicy sizePolicy = createExpandSizePolicy(100, 0);
     QPalette backgroundPalette = createPalette(backgroundColor);
-    canvas = new DrawCanvas(getInstance(), startGeometry, sizePolicy, minSize, backgroundPalette);
+    canvas = new DrawCanvas(getMainWidget(), startGeometry, sizePolicy, minSize, backgroundPalette);
     return canvas;
 }
 
