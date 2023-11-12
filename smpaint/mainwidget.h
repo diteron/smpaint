@@ -3,7 +3,7 @@
 #include <qwidget.h>
 #include "ui/drawcanvas.h"
 #include "ui/sidebar.h"
-#include "shapes/shapes.h"
+#include "shapes/shape.h"
 #include "shapes/shapefactory.h"
 
 class MainWidget : public QWidget {
@@ -51,10 +51,9 @@ private:
     QSizePolicy createExpandSizePolicy(int horizontalStretch, int verticalStretch);
     QPalette createPalette(const QColor& backgroundColor);
     QMenuBar* createMenuBar(QMainWindow* SmpaintClass);
-    void addMenuBarSubmenu(QMenuBar* menuBar, QMenu** submenu, const char* submenuName,
-                           const char* title, const char* parentName);
+    void addMenuBarSubmenu(QMenuBar* menuBar, QMenu** submenu, 
+                           const char* submenuName, const char* title);
     void addSubmenuAction(QMenu* submenu, QAction** action, const char* actionName,
-                          QWidget* parent, const char* parentName,
-                          const char* title, const char* shortcut);
+                          QWidget* parent, const char* title, const char* shortcut);
 };
 

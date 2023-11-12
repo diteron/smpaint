@@ -114,7 +114,6 @@
     <ClInclude Include="shapes\shapefactory.h" />
     <ClInclude Include="shapes\point.h" />
     <ClInclude Include="shapes\shape.h" />
-    <ClInclude Include="shapes\shapes.h" />
     <ClInclude Include="smpaint.h" />
     <ClInclude Include="shapes\stdafx.h" />
     <ClInclude Include="ui\stdafx.h" />

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <qwidget.h>
-#include "../shapes/shapes.h"
+#include "../shapes/shape.h"
 
 class DrawCanvas : public QWidget {
 

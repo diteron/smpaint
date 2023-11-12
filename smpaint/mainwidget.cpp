@@ -3,9 +3,8 @@
 
 MainWidget::MainWidget(QWidget* parent) : QWidget(parent) {}
 MainWidget::~MainWidget() {
-    if (shapesList.size() > 0) {
-        qDeleteAll(shapesList);
-    }
+    if (shapesList.size() > 0) { qDeleteAll(shapesList); }
+    if (currentShape != nullptr) { delete currentShape; }
     delete ShapeFactory::instance();
 }
 
@@ -29,11 +28,11 @@ void MainWidget::setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowH
     gridLayout->addWidget(scrollArea, 0, 1, 1, 1);
 
     menuBar = createMenuBar(SmpaintClass);
-    addMenuBarSubmenu(menuBar, &menuFile, "menuFile", "File", "SmpaintClass");
+    addMenuBarSubmenu(menuBar, &menuFile, "menuFile", "File");
     addSubmenuAction(menuFile, &openAction, "openAction",
-                     SmpaintClass, "SmpaintClass", "Open", "Ctrl+O");
+                     SmpaintClass, "Open", "Ctrl+O");
     addSubmenuAction(menuFile, &saveAction, "saveAction",
-                     SmpaintClass, "SmpaintClass", "Save", "Ctrl+S");
+                     SmpaintClass, "Save", "Ctrl+S");
 
     sideBar = new SideBar(MainWidget::instance(), 20, 6, 180);
     sideBar->populateShapeCombobox(ShapeFactory::instance()->getShapesNames());
@@ -137,20 +136,19 @@ QMenuBar* MainWidget::createMenuBar(QMainWindow* SmpaintClass) {
     return menu;
 }
 
-void MainWidget::addMenuBarSubmenu(QMenuBar* menuBar, QMenu** submenu, const char* submenuName,
-                                   const char* title, const char* parentName) {
+void MainWidget::addMenuBarSubmenu(QMenuBar* menuBar, QMenu** submenu,
+                                   const char* submenuName, const char* title) {
     *submenu = new QMenu(menuBar);
     (*submenu)->setObjectName(submenuName);
     menuBar->addAction((*submenu)->menuAction());
-    (*submenu)->setTitle(QCoreApplication::translate(parentName, title, nullptr));
+    (*submenu)->setTitle(title);
 }
 
 void MainWidget::addSubmenuAction(QMenu* submenu, QAction** action, const char* actionName,
-                                  QWidget* parent, const char* parentName,
-                                  const char* title, const char* shortcut) {
+                                  QWidget* parent, const char* title, const char* shortcut) {
     (*action) = new QAction(parent);
     (*action)->setObjectName(actionName);
     submenu->addAction(*action);
-    (*action)->setText(QCoreApplication::translate(parentName, title, nullptr));
-    (*action)->setShortcut(QCoreApplication::translate(parentName, shortcut, nullptr));
+    (*action)->setText(title);
+    (*action)->setShortcut(QKeySequence(shortcut));
 }
