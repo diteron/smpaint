@@ -5,14 +5,15 @@
 
 class ShapeFactory {
 public:
+    static ShapeFactory* instance();
+
     typedef std::function<Shape* ()> ShapeBuilder;
-    static bool registerShape(std::string const& shapeName, ShapeBuilder const& builder);
-    static Shape* buildShape(std::string const& shapeName);
-    static std::vector<std::string> getShapesNames();
+    bool registerShape(const QString& shapeName, ShapeBuilder const& builder);
+    Shape* buildShape(QString const& shapeName);
+    QStringList getShapesNames();
 
 private:
-    static ShapeFactory* getShapeFactory();
     static ShapeFactory* _instance;
-    std::map<std::string, ShapeBuilder> _registry;
+    std::map<QString, ShapeBuilder> _registry;
 };
 

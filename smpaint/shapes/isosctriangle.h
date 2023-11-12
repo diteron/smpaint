@@ -5,10 +5,12 @@
 
 class IsoscTriangle : public Shape {
 public:
-    IsoscTriangle() {};
-    void calculatePoints();
+    IsoscTriangle();
+    bool calculatePoints();
 
 private:
     void createFields();
+
+    static const bool registeredShape;
 };
 

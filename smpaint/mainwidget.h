@@ -4,6 +4,7 @@
 #include "ui/drawcanvas.h"
 #include "ui/sidebar.h"
 #include "shapes/shapes.h"
+#include "shapes/shapefactory.h"
 
 class MainWidget : public QWidget {
 
@@ -11,11 +12,23 @@ class MainWidget : public QWidget {
 
 public:
     MainWidget(QWidget* parent = nullptr);
+    ~MainWidget();
     void setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowHeight);
-    static MainWidget* getMainWidget();
+    static MainWidget* instance();
+
+    void setCurrentShape(QString shapeName);
+    void selectDrawnShape(int index);
+    Shape* getCurrentShape() { return currentShape; }
+    QVector<Shape*>& getShapesList() { return shapesList; }
+    void handleDataChange(int dataInd, int newValue);
+    //void setShapePoints(std::vector<Point> points);
+    void addNewShape(Shape* shape);
+    void updateSidebar();
+    //const std::vector<Point>& getShapePoints() { return shapePoints; }
+    //const std::vector<int>& getShapeData() { return shapeData; }
 
 private:
-    static MainWidget* instance;
+    static MainWidget* _instance;
 
     QMenuBar* menuBar = nullptr;
     QMenu* menuFile = nullptr;
@@ -23,11 +36,14 @@ private:
     QAction* saveAction = nullptr;
 
     QGridLayout* gridLayout = nullptr;
-
     QScrollArea* scrollArea = nullptr;
     DrawCanvas* drawCanvas = nullptr;
-
     SideBar* sideBar = nullptr;
+
+    QVector<Shape*> shapesList;
+    Shape* currentShape = nullptr;
+    QVector<int> shapeData;
+    //std::vector<Point> shapePoints;
 
     QGridLayout* createGridLayout();
     DrawCanvas* createDrawCanvas(const QRect& startGeometry, const QSize& minSize,

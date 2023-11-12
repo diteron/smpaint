@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "../mainwidget.h"
 #include "drawcanvas.h"
 
 DrawCanvas::DrawCanvas(QWidget* parent, const QRect& startGeometry,
@@ -25,4 +26,38 @@ void DrawCanvas::setResizable() {
     QSizeGrip* sizeGrip = new QSizeGrip(this);
     QGridLayout* layout = new QGridLayout(this);
     layout->addWidget(sizeGrip, 0, 0, 1, 1, Qt::AlignBottom | Qt::AlignRight);
+}
+
+void DrawCanvas::mousePressEvent(QMouseEvent* event) {
+    Shape* currShape = MainWidget::instance()->getCurrentShape();
+    currShape->setCenter(event->pos());
+
+    if (currShape->calculatePoints()) {
+        MainWidget::instance()->addNewShape(currShape);
+    }
+
+    this->update();
+    MainWidget::instance()->setCurrentShape(currShape->getName());
+}
+
+void DrawCanvas::paintEvent(QPaintEvent* event) {
+    QPainter painter(this);
+    painter.begin(this);
+    drawShapes(painter, MainWidget::instance()->getShapesList());
+    painter.end();
+}
+
+void DrawCanvas::drawShapes(QPainter& painter, const QVector<Shape*>& shapes) {
+    QPen pen;
+    pen.setWidth(1);
+    pen.setColor(Qt::black);
+    pen.setStyle(Qt::SolidLine);
+    painter.setPen(pen);
+
+    for (Shape* shape : shapes) {
+        QVector<Point> points = shape->getPoints();
+        for (unsigned i = 0; i < points.size() - 1; ++i) {
+            painter.drawLine(points[i], points[i + 1]);
+        }
+    }
 }

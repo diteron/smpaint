@@ -1,9 +1,15 @@
 #include "stdafx.h"
 #include "mainwidget.h"
 
-MainWidget::MainWidget(QWidget* parent) : QWidget(parent) {};
+MainWidget::MainWidget(QWidget* parent) : QWidget(parent) {}
+MainWidget::~MainWidget() {
+    if (shapesList.size() > 0) {
+        qDeleteAll(shapesList);
+    }
+    delete ShapeFactory::instance();
+}
 
-MainWidget* MainWidget::instance = nullptr;
+MainWidget* MainWidget::_instance = nullptr;
 
 void MainWidget::setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowHeight) {
     if (SmpaintClass->objectName().isEmpty()) {
@@ -14,7 +20,7 @@ void MainWidget::setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowH
 
     // Create a resizable draw canvas with scrollbars
     scrollArea = new QScrollArea(this);
-    drawCanvas = createDrawCanvas(QRect(0, 0, 1000, 565), QSize(100, 50),
+    drawCanvas = createDrawCanvas(QRect(0, 0, 850, 550), QSize(100, 50),
                                   QColor(255, 255, 255, 255));
     scrollArea->setWidget(drawCanvas); 
     drawCanvas->setResizable();
@@ -29,15 +35,58 @@ void MainWidget::setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowH
     addSubmenuAction(menuFile, &saveAction, "saveAction",
                      SmpaintClass, "SmpaintClass", "Save", "Ctrl+S");
 
-    sideBar = new SideBar(getMainWidget());
+    sideBar = new SideBar(MainWidget::instance(), 20, 6, 180);
+    sideBar->populateShapeCombobox(ShapeFactory::instance()->getShapesNames());
     gridLayout->addLayout(sideBar, 0, 0, 1, 1);
 }
 
-MainWidget* MainWidget::getMainWidget() {
-    if (instance == nullptr) {
-        instance = new MainWidget();
+MainWidget* MainWidget::instance() {
+    if (_instance == nullptr) {
+        _instance = new MainWidget();
     }
-    return instance;
+    return _instance;
+}
+
+void MainWidget::setCurrentShape(QString shapeName) {
+    if (currentShape != nullptr && !currentShape->isDrawn()) {
+        delete currentShape;
+    }
+
+    currentShape = ShapeFactory::instance()->buildShape(shapeName);
+    sideBar->createShapeDataFields(currentShape);
+    sideBar->update();
+}
+
+void MainWidget::selectDrawnShape(int index) {
+    if (shapesList.isEmpty()) {
+        return;
+    }
+
+    currentShape = shapesList[index];
+    sideBar->createShapeDataFields(currentShape);
+    sideBar->update();
+}
+
+void MainWidget::handleDataChange(int dataInd, int newValue) {
+    currentShape->setData(dataInd, newValue);
+}
+
+//void MainWidget::setShapePoints(std::vector<Point> points) {
+//    shapePoints = points;
+//}
+
+void MainWidget::addNewShape(Shape* shape) {
+    if (shape->isDrawn()) {
+        return;
+    }
+
+    shape->setDrawn();
+    shapesList.insert(shapesList.begin(), shape);
+    sideBar->addDrawnShape(shape->getName());
+}
+
+void MainWidget::updateSidebar() {
+    sideBar->update();
 }
 
 QGridLayout* MainWidget::createGridLayout() {
@@ -56,7 +105,8 @@ DrawCanvas* MainWidget::createDrawCanvas(const QRect& startGeometry, const QSize
     DrawCanvas* canvas;
     QSizePolicy sizePolicy = createExpandSizePolicy(100, 0);
     QPalette backgroundPalette = createPalette(backgroundColor);
-    canvas = new DrawCanvas(getMainWidget(), startGeometry, sizePolicy, minSize, backgroundPalette);
+    canvas = new DrawCanvas(MainWidget::instance(), startGeometry,
+                            sizePolicy, minSize, backgroundPalette);
     return canvas;
 }
 

@@ -3,25 +3,25 @@
 
 ShapeFactory* ShapeFactory::_instance = nullptr;
 
-bool ShapeFactory::registerShape(std::string const& shapeName, ShapeBuilder const& builder) {
-    return getShapeFactory()->_registry.insert(std::make_pair(shapeName, builder)).second;
+bool ShapeFactory::registerShape(const QString& shapeName, ShapeBuilder const& builder) {
+    return _registry.insert(std::make_pair(shapeName, builder)).second;
 }
 
-Shape* ShapeFactory::buildShape(std::string const& shapeName) {
-    auto it = getShapeFactory()->_registry.find(shapeName);
-    if (it == getShapeFactory()->_registry.end()) { return nullptr; }
+Shape* ShapeFactory::buildShape(QString const& shapeName) {
+    auto it = _registry.find(shapeName);
+    if (it == _registry.end()) { return nullptr; }
     return (it->second)();
 }
 
-std::vector<std::string> ShapeFactory::getShapesNames() {
-    std::vector<std::string> names;
-    for (const std::pair shape : getShapeFactory()->_registry) {
+QStringList ShapeFactory::getShapesNames() {
+    QStringList names;
+    for (const std::pair shape : _registry) {
         names.push_back(shape.first);
     }
     return names;
 }
 
-ShapeFactory* ShapeFactory::getShapeFactory() {
+ShapeFactory* ShapeFactory::instance() {
     if (_instance == nullptr) {
         _instance = new ShapeFactory();
     }
