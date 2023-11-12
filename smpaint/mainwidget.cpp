@@ -56,6 +56,17 @@ void MainWidget::setCurrentShape(QString shapeName) {
     sideBar->update();
 }
 
+void MainWidget::setCurrentShape(QString shapeName, QVector<int>& shapeData) {
+    if (currentShape != nullptr && !currentShape->isDrawn()) {
+        delete currentShape;
+    }
+
+    currentShape = ShapeFactory::instance()->buildShape(shapeName);
+    currentShape->setData(shapeData);
+    sideBar->createShapeDataFields(currentShape);
+    sideBar->update();
+}
+
 void MainWidget::selectDrawnShape(int index) {
     if (shapesList.isEmpty()) {
         return;
@@ -64,6 +75,10 @@ void MainWidget::selectDrawnShape(int index) {
     currentShape = shapesList[index];
     sideBar->createShapeDataFields(currentShape);
     sideBar->update();
+}
+
+void MainWidget::handleShapeChange(QString newShapeName) {
+    setCurrentShape(newShapeName);
 }
 
 void MainWidget::handleDataChange(int dataInd, int newValue) {

@@ -13,21 +13,32 @@ class MainWidget : public QWidget {
 public:
     MainWidget(QWidget* parent = nullptr);
     ~MainWidget();
-    void setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowHeight);
     static MainWidget* instance();
 
+    void setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowHeight);
     void setCurrentShape(QString shapeName);
+    void setCurrentShape(QString shapeName, QVector<int>& shapeData);
     void selectDrawnShape(int index);
     Shape* getCurrentShape() { return currentShape; }
     QVector<Shape*>& getShapesList() { return shapesList; }
+
+    void handleShapeChange(QString newShapeName);
     void handleDataChange(int dataInd, int newValue);
-    //void setShapePoints(std::vector<Point> points);
     void addNewShape(Shape* shape);
     void updateSidebar();
-    //const std::vector<Point>& getShapePoints() { return shapePoints; }
-    //const std::vector<int>& getShapeData() { return shapeData; }
 
 private:
+    QGridLayout* createGridLayout();
+    DrawCanvas* createDrawCanvas(const QRect& startGeometry, const QSize& minSize,
+                                 const QColor& backgroundColor);
+    QSizePolicy createExpandSizePolicy(int horizontalStretch, int verticalStretch);
+    QPalette createPalette(const QColor& backgroundColor);
+    QMenuBar* createMenuBar(QMainWindow* SmpaintClass);
+    void addMenuBarSubmenu(QMenuBar* menuBar, QMenu** submenu,
+                           const char* submenuName, const char* title);
+    void addSubmenuAction(QMenu* submenu, QAction** action, const char* actionName,
+                          QWidget* parent, const char* title, const char* shortcut);
+
     static MainWidget* _instance;
 
     QMenuBar* menuBar = nullptr;
@@ -43,17 +54,5 @@ private:
     QVector<Shape*> shapesList;
     Shape* currentShape = nullptr;
     QVector<int> shapeData;
-    //std::vector<Point> shapePoints;
-
-    QGridLayout* createGridLayout();
-    DrawCanvas* createDrawCanvas(const QRect& startGeometry, const QSize& minSize,
-                                 const QColor& backgroundColor);
-    QSizePolicy createExpandSizePolicy(int horizontalStretch, int verticalStretch);
-    QPalette createPalette(const QColor& backgroundColor);
-    QMenuBar* createMenuBar(QMainWindow* SmpaintClass);
-    void addMenuBarSubmenu(QMenuBar* menuBar, QMenu** submenu, 
-                           const char* submenuName, const char* title);
-    void addSubmenuAction(QMenu* submenu, QAction** action, const char* actionName,
-                          QWidget* parent, const char* title, const char* shortcut);
 };
 

@@ -29,15 +29,15 @@ void DrawCanvas::setResizable() {
 }
 
 void DrawCanvas::mousePressEvent(QMouseEvent* event) {
-    Shape* currShape = MainWidget::instance()->getCurrentShape();
-    currShape->setCenter(event->pos());
+    Shape* drawingShape = MainWidget::instance()->getCurrentShape();
+    drawingShape->setCenter(event->pos());
 
-    if (currShape->calculatePoints()) {
-        MainWidget::instance()->addNewShape(currShape);
+    if (drawingShape->calculatePoints()) {
+        MainWidget::instance()->addNewShape(drawingShape);
     }
 
     this->update();
-    MainWidget::instance()->setCurrentShape(currShape->getName());
+    MainWidget::instance()->setCurrentShape(drawingShape->getName(), drawingShape->getData());
 }
 
 void DrawCanvas::paintEvent(QPaintEvent* event) {
