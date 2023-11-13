@@ -64,6 +64,7 @@ void MainWidget::setCurrentShape(QString shapeName, QVector<int>& shapeData) {
     currentShape = ShapeFactory::instance()->buildShape(shapeName);
     currentShape->setData(shapeData);
     sideBar->createShapeDataFields(currentShape);
+    sideBar->setShapeCoordinates(currentShape->getCenter());
     sideBar->update();
 }
 
@@ -74,7 +75,8 @@ void MainWidget::selectDrawnShape(int index) {
 
     currentShape = shapesList[index];
     sideBar->createShapeDataFields(currentShape);
-    sideBar->update();
+    sideBar->setShapeCoordinates(currentShape->getCenter());
+    //sideBar->update();
 }
 
 void MainWidget::handleShapeChange(QString newShapeName) {
@@ -91,12 +93,14 @@ void MainWidget::handleDataChange(int dataInd, int newValue) {
 
 void MainWidget::addNewShape(Shape* shape) {
     if (shape->isDrawn()) {
+        drawCanvas->update();
         return;
     }
 
     shape->setDrawn();
     shapesList.insert(shapesList.begin(), shape);
     sideBar->addDrawnShape(shape->getName());
+    drawCanvas->update();
 }
 
 void MainWidget::updateSidebar() {

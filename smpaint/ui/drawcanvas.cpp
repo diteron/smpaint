@@ -34,10 +34,8 @@ void DrawCanvas::mousePressEvent(QMouseEvent* event) {
 
     if (drawingShape->calculatePoints()) {
         MainWidget::instance()->addNewShape(drawingShape);
+        MainWidget::instance()->setCurrentShape(drawingShape->getName(), drawingShape->getData());
     }
-
-    this->update();
-    MainWidget::instance()->setCurrentShape(drawingShape->getName(), drawingShape->getData());
 }
 
 void DrawCanvas::paintEvent(QPaintEvent* event) {

@@ -23,6 +23,7 @@ public:
     QVector<Shape*>& getShapesList() { return shapesList; }
 
     void handleShapeChange(QString newShapeName);
+    void handleCoordChange();
     void handleDataChange(int dataInd, int newValue);
     void addNewShape(Shape* shape);
     void updateSidebar();

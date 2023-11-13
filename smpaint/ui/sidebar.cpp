@@ -25,6 +25,11 @@ void SideBar::removeDrawnShape(int index) {
     drawnShapesComboBox->removeItem(index);
 }
 
+void SideBar::setShapeCoordinates(const Point& center) {
+    xSpinBox->setValue(center.x());
+    ySpinBox->setValue(center.y());
+}
+
 void SideBar::createShapeDataFields(Shape* shape) {
     // Delete old rows
     if (shapeDataLayout->rowCount() > 0) {
@@ -91,18 +96,32 @@ void SideBar::createCoordinatesArea(int spacing, int maxWidth) {
     coordLayout->setObjectName("coordLayout");
 
     xLabel = createLabel(this->parentWidget(), "xLabel", "x:     ");
-    xSpinBox = createSpinBox(this->parentWidget(), "xSpinBox", 90, 0, 1000, 1);
+    xSpinBox = createSpinBox(this->parentWidget(), "xSpinBox", 90, 0, 1000, 0);
     coordLayout->addRow(xLabel, xSpinBox);
     yLabel = createLabel(this->parentWidget(), "yLabel", "y:     ");
-    ySpinBox = createSpinBox(this->parentWidget(), "ySpinBox", 90, 0, 1000, 1);
+    ySpinBox = createSpinBox(this->parentWidget(), "ySpinBox", 90, 0, 1000, 0);
     coordLayout->addRow(yLabel, ySpinBox);
 
     drawButton = createPushButton(this->parentWidget(), "drawButton", "Draw", 90);
+    drawButton->connect(drawButton, &QPushButton::clicked,
+                        this, &SideBar::handleDrawButtonClick);
     coordLayout->setWidget(3, QFormLayout::FieldRole, drawButton);
 
     coordGroupBox->setLayout(coordLayout);
     this->addLayout(coordLayout);
     this->addWidget(coordGroupBox);
+}
+
+void SideBar::handleDrawButtonClick() {
+    Shape* drawingShape = MainWidget::instance()->getCurrentShape();
+
+    Point center(xSpinBox->value(), ySpinBox->value());
+    drawingShape->setCenter(center);
+
+    if (drawingShape->calculatePoints()) {
+        MainWidget::instance()->addNewShape(drawingShape);
+        MainWidget::instance()->setCurrentShape(drawingShape->getName(), drawingShape->getData());
+    }
 }
 
 QSpinBox* SideBar::createSpinBox(QWidget* parent, const std::string qtObjName,
