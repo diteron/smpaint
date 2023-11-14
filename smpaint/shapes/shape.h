@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include <math.h>
+#include <cmath>
 #include <qpainter.h>
 #include "point.h"
 

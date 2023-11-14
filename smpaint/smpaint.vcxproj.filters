@@ -79,6 +79,9 @@
     <ClCompile Include="shapes\isosctriangle.cpp">
       <Filter>Source Files\shapes</Filter>
     </ClCompile>
+    <ClCompile Include="shapes\ellipse.cpp">
+      <Filter>Source Files\shapes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -103,6 +106,9 @@
       <Filter>Header Files\shapes</Filter>
     </ClInclude>
     <ClInclude Include="shapes\isosctriangle.h">
+      <Filter>Header Files\shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="shapes\ellipse.h">
       <Filter>Header Files\shapes</Filter>
     </ClInclude>
   </ItemGroup>

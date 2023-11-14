@@ -1,11 +1,10 @@
 #pragma once
-
 #include "shape.h"
 #include "shapefactory.h"
 
-class IsoscTriangle : public Shape {
+class Ellipse : public Shape {
 public:
-    IsoscTriangle();
+    Ellipse();
     bool calculatePoints() override;
 
 private:
