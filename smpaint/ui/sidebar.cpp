@@ -18,7 +18,7 @@ void SideBar::populateShapeCombobox(const QStringList& items) {
 }
 
 void SideBar::addDrawnShape(const QString& shapeName) {
-    drawnShapesComboBox->addItem(shapeName);
+    drawnShapesComboBox->insertItem(0, shapeName);
 }
 
 void SideBar::removeDrawnShape(int index) {
