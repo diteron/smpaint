@@ -18,15 +18,16 @@ public:
     void setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowHeight);
     void setCurrentShape(QString shapeName);
     void setCurrentShape(QString shapeName, QVector<int>& shapeData);
-    void selectDrawnShape(int index);
     Shape* getCurrentShape() { return currentShape; }
     QVector<Shape*>& getShapesList() { return shapesList; }
 
-    void handleShapeChange(QString newShapeName);
-    void handleCoordChange();
-    void handleDataChange(int dataInd, int newValue);
     void addNewShape(Shape* shape);
     void updateSidebar();
+
+public slots:
+    void handleShapeChange(QString newShapeName);
+    void handleDataChange(int dataInd, int newValue);
+    void selectDrawnShape(int index);
 
 private:
     QGridLayout* createGridLayout();

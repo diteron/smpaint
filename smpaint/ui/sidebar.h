@@ -16,6 +16,9 @@ public:
     void createShapeDataFields(Shape* shape);
     void setShapeCoordinates(const Point& center);
 
+public slots:
+    void handleDrawButtonClick();
+
 private:
     void createSelectArea(int spacing);
     QLabel* createLabel(QWidget* parent, const std::string qtObjName,
@@ -24,7 +27,6 @@ private:
                               int maxWidth);
 
     void createCoordinatesArea(int spacing, int maxWidth);
-    void handleDrawButtonClick();
     QSpinBox* createSpinBox(QWidget* parent, const std::string qtObjName,
                             int maxWidth, int minValue, int maxValue, int defaultValue);
     QPushButton* createPushButton(QWidget* parent, const char* qtObjName,

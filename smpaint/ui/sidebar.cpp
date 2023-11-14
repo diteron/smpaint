@@ -46,7 +46,7 @@ void SideBar::createShapeDataFields(Shape* shape) {
         QSpinBox* spinbox = createSpinBox(this->parentWidget(), "SpinBox " + std::to_string(i),
                                           90, 0, 1000, shapeData[i]);
         spinbox->connect(spinbox, &QSpinBox::valueChanged, MainWidget::instance(),
-                         [=](int value) { return MainWidget::instance()->getCurrentShape()->setData(i, value); } );
+                         [=](int value) { return shape->setData(i, value); } );
         shapeDataLayout->insertRow(i, label, spinbox);
     }
 }
@@ -120,7 +120,8 @@ void SideBar::handleDrawButtonClick() {
 
     if (drawingShape->calculatePoints()) {
         MainWidget::instance()->addNewShape(drawingShape);
-        MainWidget::instance()->setCurrentShape(drawingShape->getName(), drawingShape->getData());
+        MainWidget::instance()->setCurrentShape(drawingShape->getName(),    // Create a new current shape
+                                                drawingShape->getData());   // with data from the drawn shape
     }
 }
 
