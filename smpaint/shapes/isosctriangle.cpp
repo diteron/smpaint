@@ -26,5 +26,4 @@ bool IsoscTriangle::calculatePoints() {
 void IsoscTriangle::createFields() {
     _dataFields = { DataField("Height", 50),
                     DataField("Side", 60) };
-
 }

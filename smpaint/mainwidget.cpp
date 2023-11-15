@@ -53,6 +53,7 @@ void MainWidget::setCurrentShape(QString shapeName) {
 
     currentShape = ShapeFactory::instance()->buildShape(shapeName);
     sideBar->createShapeDataFields(currentShape);
+    sideBar->setShapeCoordinates(currentShape->getCenter());
     sideBar->update();
 }
 
