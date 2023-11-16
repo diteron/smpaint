@@ -1,4 +1,5 @@
 #pragma once
+
 #include "shape.h"
 #include "shapefactory.h"
 
@@ -12,4 +13,3 @@ private:
 
     static const bool registeredShape;
 };
-

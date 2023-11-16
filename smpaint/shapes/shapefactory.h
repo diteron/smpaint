@@ -16,4 +16,3 @@ private:
     static ShapeFactory* _instance;
     std::map<QString, ShapeBuilder> _registry;
 };
-

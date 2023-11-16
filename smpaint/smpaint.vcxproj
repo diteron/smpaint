@@ -100,6 +100,7 @@
     </QtMoc>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="shapes\parallelogram.cpp" />
     <ClCompile Include="shapes\rectangle.cpp" />
     <ClCompile Include="shapes\ellipse.cpp" />
     <ClCompile Include="shapes\isosctriangle.cpp" />
@@ -112,6 +113,7 @@
     <QtMoc Include="mainwidget.h" />
     <QtMoc Include="ui\drawcanvas.h" />
     <QtMoc Include="ui\sidebar.h" />
+    <ClInclude Include="shapes\parallelogram.h" />
     <ClInclude Include="shapes\rectangle.h" />
     <ClInclude Include="shapes\ellipse.h" />
     <ClInclude Include="shapes\isosctriangle.h" />

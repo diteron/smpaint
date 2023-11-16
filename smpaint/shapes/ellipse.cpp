@@ -35,7 +35,7 @@ bool Ellipse::calculatePoints() {
 }
 
 void Ellipse::createFields() {
-    _dataFields = { DataField("x radius", 80),
-                    DataField("y radius", 60) };
+    _dataFields = { DataField("x radius", 50),
+                    DataField("y radius", 30) };
 }
 

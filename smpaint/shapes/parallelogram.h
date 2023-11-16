@@ -3,13 +3,14 @@
 #include "shape.h"
 #include "shapefactory.h"
 
-class IsoscTriangle : public Shape {
+class Parallelogram : public Shape {
 public:
-    IsoscTriangle();
+    Parallelogram();
     bool calculatePoints() override;
 
 private:
     void createFields() override;
+    float toRad(int degree);
 
     static const bool registeredShape;
 };
