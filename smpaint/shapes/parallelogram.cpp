@@ -24,7 +24,7 @@ bool Parallelogram::calculatePoints() {
                  ^
            halfSideXPart
     */
-    int halfSideXPart = static_cast<int>((halfSideY * cos(angleInRad)) / 2);
+    int halfSideXPart = static_cast<int>(halfSideY * cos(angleInRad));
 
     _points = { Point(_centerCoord.x() - (halfSideX + halfSideXPart), _centerCoord.y() + halfHeight),
                 Point(_centerCoord.x() - (halfSideX - halfSideXPart), _centerCoord.y() - halfHeight),
