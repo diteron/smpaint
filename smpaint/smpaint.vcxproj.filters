@@ -93,16 +93,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files\ui</Filter>
-    </ClInclude>
     <ClInclude Include="shapes\shape.h">
       <Filter>Header Files\shapes</Filter>
     </ClInclude>
     <ClInclude Include="smpaint.h">
-      <Filter>Header Files\core</Filter>
-    </ClInclude>
-    <ClInclude Include="ui\stdafx.h">
       <Filter>Header Files\core</Filter>
     </ClInclude>
     <ClInclude Include="shapes\stdafx.h">
@@ -128,6 +122,12 @@
     </ClInclude>
     <ClInclude Include="shapes\line.h">
       <Filter>Header Files\shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\stdafx.h">
+      <Filter>Header Files\ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
