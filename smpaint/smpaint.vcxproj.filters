@@ -44,9 +44,6 @@
     <QtRcc Include="smpaint.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-    <QtUic Include="smpaint.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ui\sidebar.cpp">

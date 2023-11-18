@@ -126,7 +126,6 @@
     <ClInclude Include="shapes\stdafx.h" />
     <ClInclude Include="ui\stdafx.h" />
     <QtRcc Include="smpaint.qrc" />
-    <QtUic Include="smpaint.ui" />
     <ClCompile Include="smpaint.cpp" />
     <ClCompile Include="main.cpp" />
     <ClInclude Include="stdafx.h" />
