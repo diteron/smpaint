@@ -7,7 +7,7 @@ bool ShapeFactory::registerShape(const QString& shapeName, ShapeBuilder const& b
     return _registry.insert(std::make_pair(shapeName, builder)).second;
 }
 
-Shape* ShapeFactory::buildShape(QString const& shapeName) {
+Shape* ShapeFactory::buildShape(const QString& shapeName) {
     auto it = _registry.find(shapeName);
     if (it == _registry.end()) { return nullptr; }
     return (it->second)();
