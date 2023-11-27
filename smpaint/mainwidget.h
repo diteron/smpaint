@@ -18,10 +18,12 @@ public:
     void setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowHeight);
     void setCurrentShape(QString shapeName);
     void setCurrentShape(QString shapeName, QVector<int>& shapeData);
+
     Shape* getCurrentShape() { return currentShape; }
     QVector<Shape*>& getShapesList() { return shapesList; }
 
     void addNewShape(Shape* shape);
+    void removeDrawnShape(int index);
     void updateSidebar();
 
 public slots:

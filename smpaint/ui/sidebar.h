@@ -12,11 +12,11 @@ public:
             int itemsSpacing, int maxWidth);
     void populateShapeCombobox(const QStringList& items);
     void addDrawnShape(const QString& shapeName);
-    void removeDrawnShape(int index);
     void createShapeDataFields(Shape* shape);
     void setShapeCoordinates(const Point& center);
 
 public slots:
+    void handleDeleteButtonClick();
     void handleDrawButtonClick();
 
 private:
@@ -38,6 +38,7 @@ private:
     QComboBox* shapesComboBox = nullptr;
     QLabel* drawnShapesLabel = nullptr;
     QComboBox* drawnShapesComboBox = nullptr;
+    QPushButton* deleteButton = nullptr;
     QFormLayout* selectLayout = nullptr;
 
     QLabel* xLabel = nullptr;

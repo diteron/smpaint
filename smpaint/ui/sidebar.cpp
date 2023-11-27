@@ -14,15 +14,13 @@ SideBar::SideBar(QWidget* parent, int spacing,
 }
 
 void SideBar::populateShapeCombobox(const QStringList& items) {
+    std::array<int, 2> arr = { {1, 2} };
     shapesComboBox->addItems(items);
 }
 
 void SideBar::addDrawnShape(const QString& shapeName) {
     drawnShapesComboBox->insertItem(0, shapeName);
-}
-
-void SideBar::removeDrawnShape(int index) {
-    drawnShapesComboBox->removeItem(index);
+    drawnShapesComboBox->setCurrentIndex(0);
 }
 
 void SideBar::setShapeCoordinates(const Point& center) {
@@ -68,6 +66,11 @@ void SideBar::createSelectArea(int spacing) {
                                  MainWidget::instance(), &MainWidget::selectDrawnShape);
     selectLayout->addRow(drawnShapesLabel, drawnShapesComboBox);
 
+    deleteButton = createPushButton(this->parentWidget(), "deleteButton", "Delete shape", 90);
+    deleteButton->connect(deleteButton, &QPushButton::clicked,
+                        this, &SideBar::handleDeleteButtonClick);
+    selectLayout->setWidget(3, QFormLayout::FieldRole, deleteButton);
+
     this->addLayout(selectLayout);
 }
 
@@ -110,6 +113,17 @@ void SideBar::createCoordinatesArea(int spacing, int maxWidth) {
     coordGroupBox->setLayout(coordLayout);
     this->addLayout(coordLayout);
     this->addWidget(coordGroupBox);
+}
+
+void SideBar::handleDeleteButtonClick() {
+    int drawnShapeIndex = drawnShapesComboBox->currentIndex();
+    if (drawnShapeIndex == -1) { return; }      // If the combobox is empty, there is nothing to remove
+
+    drawnShapesComboBox->removeItem(drawnShapeIndex);
+    MainWidget::instance()->removeDrawnShape(drawnShapeIndex);
+    
+    QString newShapeToDraw = shapesComboBox->currentText();
+    MainWidget::instance()->setCurrentShape(newShapeToDraw);
 }
 
 void SideBar::handleDrawButtonClick() {

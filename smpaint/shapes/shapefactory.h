@@ -5,9 +5,9 @@
 
 class ShapeFactory {
 public:
-    static ShapeFactory* instance();
-
     typedef std::function<Shape* ()> ShapeBuilder;
+
+    static ShapeFactory* instance();
     bool registerShape(const QString& shapeName, ShapeBuilder const& builder);
     Shape* buildShape(QString const& shapeName);
     QStringList getShapesNames();

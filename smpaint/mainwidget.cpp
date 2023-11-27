@@ -97,6 +97,13 @@ void MainWidget::addNewShape(Shape* shape) {
     drawCanvas->update();
 }
 
+void MainWidget::removeDrawnShape(int index) {
+    Shape* removedShape = shapesList.at(index);
+    delete removedShape;
+    shapesList.remove(index);
+    drawCanvas->update();
+}
+
 void MainWidget::updateSidebar() {
     sideBar->update();
 }
