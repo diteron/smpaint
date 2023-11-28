@@ -14,7 +14,6 @@ SideBar::SideBar(QWidget* parent, int spacing,
 }
 
 void SideBar::populateShapeCombobox(const QStringList& items) {
-    std::array<int, 2> arr = { {1, 2} };
     shapesComboBox->addItems(items);
 }
 
