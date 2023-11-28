@@ -23,6 +23,9 @@ public:
     const QString getName() { return _name; }
     const bool isDrawn() { return _drawn; }
 
+    friend QDataStream& operator<<(QDataStream& out, const Shape& shape);
+    friend QDataStream& operator>>(QDataStream& in, Shape& shape);
+
     virtual bool calculatePoints() = 0;
 
 protected:
@@ -34,7 +37,6 @@ protected:
     const QString _name;
     Point _centerCoord;
     QVector<int> _data;
-    QVector<int> _defaultData;
     QVector<DataField> _dataFields;
     QVector<Point> _points;
     bool _drawn = false;
