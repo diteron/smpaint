@@ -12,6 +12,7 @@ public:
             int itemsSpacing, int maxWidth);
     void populateShapeCombobox(const QStringList& items);
     void addDrawnShape(const QString& shapeName);
+    void clearDrawnShapes();
     void createShapeDataFields(Shape* shape);
     void setShapeCoordinates(const Point& center);
 

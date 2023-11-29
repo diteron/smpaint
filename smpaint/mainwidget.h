@@ -3,6 +3,7 @@
 #include <qwidget.h>
 #include "ui/drawcanvas.h"
 #include "ui/sidebar.h"
+#include "ui/menu.h"
 #include "shapes/shape.h"
 #include "shapes/shapefactory.h"
 
@@ -24,7 +25,9 @@ public:
 
     void addNewShape(Shape* shape);
     void removeDrawnShape(int index);
+    void removeDrawnShapes();
     void updateSidebar();
+    void updateDrawCanvas();
 
 public slots:
     void handleShapeChange(QString newShapeName);
@@ -37,19 +40,10 @@ private:
                                  const QColor& backgroundColor);
     QSizePolicy createExpandSizePolicy(int horizontalStretch, int verticalStretch);
     QPalette createPalette(const QColor& backgroundColor);
-    QMenuBar* createMenuBar(QMainWindow* SmpaintClass);
-    void addMenuBarSubmenu(QMenuBar* menuBar, QMenu** submenu,
-                           const char* submenuName, const char* title);
-    void addSubmenuAction(QMenu* submenu, QAction** action, const char* actionName,
-                          QWidget* parent, const char* title, const char* shortcut);
 
     static MainWidget* _instance;
 
-    QMenuBar* menuBar = nullptr;
-    QMenu* menuFile = nullptr;
-    QAction* openAction = nullptr;
-    QAction* saveAction = nullptr;
-
+    SMenuBar* menuBar = nullptr;
     QGridLayout* gridLayout = nullptr;
     QScrollArea* scrollArea = nullptr;
     DrawCanvas* drawCanvas = nullptr;
@@ -57,6 +51,4 @@ private:
 
     QVector<Shape*> shapesList;
     Shape* currentShape = nullptr;
-    QVector<int> shapeData;
 };
-

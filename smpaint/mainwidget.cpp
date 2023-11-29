@@ -2,6 +2,7 @@
 #include "mainwidget.h"
 
 MainWidget::MainWidget(QWidget* parent) : QWidget(parent) {}
+
 MainWidget::~MainWidget() {
     if (shapesList.size() > 0) { qDeleteAll(shapesList); }
     if (currentShape != nullptr) { delete currentShape; }
@@ -27,12 +28,8 @@ void MainWidget::setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowH
     gridLayout = createGridLayout();
     gridLayout->addWidget(scrollArea, 0, 1, 1, 1);
 
-    menuBar = createMenuBar(SmpaintClass);
-    addMenuBarSubmenu(menuBar, &menuFile, "menuFile", "File");
-    addSubmenuAction(menuFile, &openAction, "openAction",
-                     SmpaintClass, "Open", "Ctrl+O");
-    addSubmenuAction(menuFile, &saveAction, "saveAction",
-                     SmpaintClass, "Save", "Ctrl+S");
+    menuBar = new SMenuBar(this, "menuBar", SmpaintClass->width());
+    SmpaintClass->setMenuBar(menuBar);
 
     sideBar = new SideBar(MainWidget::instance(), 20, 6, 180);
     sideBar->populateShapeCombobox(ShapeFactory::instance()->getShapesNames());
@@ -67,6 +64,14 @@ void MainWidget::setCurrentShape(QString shapeName, QVector<int>& shapeData) {
     sideBar->setShapeCoordinates(currentShape->getCenter());
 }
 
+void MainWidget::handleShapeChange(QString newShapeName) {
+    setCurrentShape(newShapeName);
+}
+
+void MainWidget::handleDataChange(int dataInd, int newValue) {
+    currentShape->setData(dataInd, newValue);
+}
+
 void MainWidget::selectDrawnShape(int index) {
     if (shapesList.isEmpty()) {
         return;
@@ -75,14 +80,6 @@ void MainWidget::selectDrawnShape(int index) {
     currentShape = shapesList[index];
     sideBar->createShapeDataFields(currentShape);
     sideBar->setShapeCoordinates(currentShape->getCenter());
-}
-
-void MainWidget::handleShapeChange(QString newShapeName) {
-    setCurrentShape(newShapeName);
-}
-
-void MainWidget::handleDataChange(int dataInd, int newValue) {
-    currentShape->setData(dataInd, newValue);
 }
 
 void MainWidget::addNewShape(Shape* shape) {
@@ -104,8 +101,18 @@ void MainWidget::removeDrawnShape(int index) {
     drawCanvas->update();
 }
 
+void MainWidget::removeDrawnShapes() {
+    qDeleteAll(shapesList);
+    shapesList.clear();
+    sideBar->clearDrawnShapes();
+}
+
 void MainWidget::updateSidebar() {
     sideBar->update();
+}
+
+void MainWidget::updateDrawCanvas() {
+    drawCanvas->update();
 }
 
 QGridLayout* MainWidget::createGridLayout() {
@@ -146,29 +153,4 @@ QPalette MainWidget::createPalette(const QColor& backgroundColor) {
     palette.setBrush(QPalette::Disabled, QPalette::Base, brush);
     palette.setBrush(QPalette::Disabled, QPalette::Window, brush);
     return palette;
-}
-
-QMenuBar* MainWidget::createMenuBar(QMainWindow* SmpaintClass) {
-    QMenuBar* menu = new QMenuBar(SmpaintClass);
-    menu->setObjectName("menuBar");
-    menu->setGeometry(QRect(0, 0, SmpaintClass->width(), 22));
-    SmpaintClass->setMenuBar(menu);
-    return menu;
-}
-
-void MainWidget::addMenuBarSubmenu(QMenuBar* menuBar, QMenu** submenu,
-                                   const char* submenuName, const char* title) {
-    *submenu = new QMenu(menuBar);
-    (*submenu)->setObjectName(submenuName);
-    menuBar->addAction((*submenu)->menuAction());
-    (*submenu)->setTitle(title);
-}
-
-void MainWidget::addSubmenuAction(QMenu* submenu, QAction** action, const char* actionName,
-                                  QWidget* parent, const char* title, const char* shortcut) {
-    (*action) = new QAction(parent);
-    (*action)->setObjectName(actionName);
-    submenu->addAction(*action);
-    (*action)->setText(title);
-    (*action)->setShortcut(QKeySequence(shortcut));
 }

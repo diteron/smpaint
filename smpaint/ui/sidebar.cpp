@@ -22,6 +22,10 @@ void SideBar::addDrawnShape(const QString& shapeName) {
     drawnShapesComboBox->setCurrentIndex(0);
 }
 
+void SideBar::clearDrawnShapes() {
+    drawnShapesComboBox->clear();
+}
+
 void SideBar::setShapeCoordinates(const Point& center) {
     xSpinBox->setValue(center.x());
     ySpinBox->setValue(center.y());

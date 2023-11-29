@@ -88,6 +88,9 @@
     <ClCompile Include="shapes\line.cpp">
       <Filter>Source Files\shapes</Filter>
     </ClCompile>
+    <ClCompile Include="ui\menu.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shapes\shape.h">
@@ -136,6 +139,9 @@
     </QtMoc>
     <QtMoc Include="mainwidget.h">
       <Filter>Header Files\core</Filter>
+    </QtMoc>
+    <QtMoc Include="ui\menu.h">
+      <Filter>Header Files\ui</Filter>
     </QtMoc>
   </ItemGroup>
 </Project>
