@@ -61,6 +61,8 @@ void SideBar::createSelectArea(int spacing) {
     shapesComboBox = createCombobox(this->parentWidget(), "shapesComboBox", 120);
     shapesComboBox->connect(shapesComboBox, &QComboBox::currentTextChanged,
                             MainWidget::instance(), &MainWidget::handleShapeChange);
+    shapesComboBox->connect(shapesComboBox, &QComboBox::textActivated,
+                            MainWidget::instance(), &MainWidget::handleShapeChange);
     selectLayout->addRow(shapesLabel, shapesComboBox);
 
     drawnShapesLabel = createLabel(this->parentWidget(), "drawnShapesLabel", "Drawn shapes: ");

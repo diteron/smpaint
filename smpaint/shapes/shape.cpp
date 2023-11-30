@@ -12,8 +12,8 @@ QDataStream& operator<<(QDataStream& out, const Shape& shape) {
 
 QDataStream& operator>>(QDataStream& in, Shape& shape) {
     in >> shape._centerCoord
-       >> shape._data
-       >> shape._points;
+        >> shape._data
+        >> shape._points;
 
     return in;
 }

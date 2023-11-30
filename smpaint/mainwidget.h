@@ -19,6 +19,7 @@ public:
     void setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowHeight);
     void setCurrentShape(QString shapeName);
     void setCurrentShape(QString shapeName, QVector<int>& shapeData);
+    void setCurrentShape(Shape* shape);
 
     Shape* getCurrentShape() { return currentShape; }
     QVector<Shape*>& getShapesList() { return shapesList; }

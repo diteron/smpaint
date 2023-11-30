@@ -86,8 +86,9 @@ void SMenuBar::deserializeShapesList(QDataStream& inputStream, QVector<Shape*>& 
             return;
         }
         // Write shape data from a file to the new shape
-        inputStream >> *newShape;   
+        inputStream >> *newShape;
         MainWidget::instance()->addNewShape(newShape);
+        newShape->setDrawn();
     }
 
     MainWidget::instance()->updateDrawCanvas();
