@@ -33,13 +33,15 @@ void DrawCanvas::mousePressEvent(QMouseEvent* event) {
     drawingShape->setCenter(event->pos());
 
     if (drawingShape->calculatePoints()) {
-        MainWidget::instance()->addNewShape(drawingShape);
-        if (drawingShape->isDrawn()) {
+        if (drawingShape->isDrawn()) {      // Keep the drawn shape as current in case the user wants to move or edit that shape again
+            MainWidget::instance()->redrawShapes();
             MainWidget::instance()->setCurrentShape(drawingShape);
         }
         else {
+            MainWidget::instance()->addNewShape(drawingShape);
             drawingShape->setDrawn();
-            MainWidget::instance()->setCurrentShape(drawingShape->getName(), drawingShape->getData());
+            MainWidget::instance()->setCurrentShape(drawingShape->getName(),    // Create a new current shape
+                                                    drawingShape->getData());   // with data from the drawn shape
         }
     }
 }

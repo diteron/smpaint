@@ -25,6 +25,7 @@ public:
     QVector<Shape*>& getShapesList() { return shapesList; }
 
     void addNewShape(Shape* shape);
+    void redrawShapes();
     void removeDrawnShape(int index);
     void removeDrawnShapes();
     void updateSidebar();

@@ -90,13 +90,12 @@ void MainWidget::selectDrawnShape(int index) {
 }
 
 void MainWidget::addNewShape(Shape* shape) {
-    if (shape->isDrawn()) {
-        drawCanvas->update();
-        return;
-    }
-
     shapesList.insert(shapesList.begin(), shape);
     sideBar->addDrawnShape(shape->getName());
+    drawCanvas->update();
+}
+
+void MainWidget::redrawShapes() {
     drawCanvas->update();
 }
 
