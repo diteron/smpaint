@@ -39,6 +39,12 @@
     <Filter Include="Source Files\core">
       <UniqueIdentifier>{e04f1421-5798-4b81-8987-1c889d7a71a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\plugins">
+      <UniqueIdentifier>{0f0797ba-acf4-4e07-98c8-0987dc8fb351}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\plugins">
+      <UniqueIdentifier>{8a4cd2dd-1b4b-47dd-a806-103d50be3f07}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="smpaint.qrc">
@@ -91,6 +97,9 @@
     <ClCompile Include="ui\menu.cpp">
       <Filter>Source Files\ui</Filter>
     </ClCompile>
+    <ClCompile Include="plugins\plugin_interface.cpp">
+      <Filter>Source Files\plugins</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shapes\shape.h">
@@ -128,6 +137,12 @@
     </ClInclude>
     <ClInclude Include="ui\stdafx.h">
       <Filter>Header Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="plugins\plugin_interface.h">
+      <Filter>Header Files\plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="plugins\stdafx.h">
+      <Filter>Header Files\plugins</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

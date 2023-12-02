@@ -12,9 +12,12 @@ public:
     Shape(QString name) : _name(name) {};
 
     void setCenter(Point point) { _centerCoord = point; };
-    void setData(QVector<int>& data) { _data = data; };
+    void setCenterXCoord(int x) { _centerCoord.setX(x); }
+    void setCenterYCoord(int y) { _centerCoord.setY(y); }
+    void setData(const QVector<int>& data) { _data = data; };
     void setData(int dataInd, int newValue) { _data[dataInd] = newValue; };
     void setDrawn() { _drawn = true; }
+    void setMoved() { _moved = true; }
     
     const Point& getCenter() { return _centerCoord; };
     QVector<int>& getData() { return _data; };
@@ -22,6 +25,7 @@ public:
     const QVector<Point>& getPoints() { return _points; };
     const QString getName() { return _name; }
     const bool isDrawn() { return _drawn; }
+    const bool isMoved() { return _moved; }
 
     friend QDataStream& operator<<(QDataStream& out, const Shape& shape);
     friend QDataStream& operator>>(QDataStream& in, Shape& shape);
@@ -40,6 +44,7 @@ protected:
     QVector<DataField> _dataFields;
     QVector<Point> _points;
     bool _drawn = false;
+    bool _moved = false;
 };
 
 class DataField {

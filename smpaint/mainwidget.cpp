@@ -12,9 +12,6 @@ MainWidget::~MainWidget() {
 MainWidget* MainWidget::_instance = nullptr;
 
 void MainWidget::setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowHeight) {
-    if (SmpaintClass->objectName().isEmpty()) {
-        SmpaintClass->setObjectName("SmpaintClass");
-    }
     SmpaintClass->resize(windowWidth, windowHeight);
     SmpaintClass->setMinimumSize(QSize(0, 0));
 
@@ -28,7 +25,7 @@ void MainWidget::setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowH
     gridLayout = createGridLayout();
     gridLayout->addWidget(scrollArea, 0, 1, 1, 1);
 
-    menuBar = new SMenuBar(this, "menuBar", SmpaintClass->width());
+    menuBar = new SMenuBar(this, SmpaintClass->width());
     SmpaintClass->setMenuBar(menuBar);
 
     sideBar = new SideBar(MainWidget::instance(), 20, 6, 180);
@@ -49,17 +46,19 @@ void MainWidget::setCurrentShape(QString shapeName) {
     }
 
     currentShape = ShapeFactory::instance()->buildShape(shapeName);
+    sideBar->setCurrentShape(currentShape->getName());
     sideBar->createShapeDataFields(currentShape);
     sideBar->setShapeCoordinates(currentShape->getCenter());
 }
 
-void MainWidget::setCurrentShape(QString shapeName, QVector<int>& shapeData) {
+void MainWidget::setCurrentShape(QString shapeName, const QVector<int>& shapeData) {
     if (currentShape != nullptr && !currentShape->isDrawn()) {
         delete currentShape;
     }
 
     currentShape = ShapeFactory::instance()->buildShape(shapeName);
     currentShape->setData(shapeData);
+    sideBar->setCurrentShape(currentShape->getName());
     sideBar->createShapeDataFields(currentShape);
     sideBar->setShapeCoordinates(currentShape->getCenter());
 }
@@ -77,6 +76,17 @@ void MainWidget::handleShapeChange(QString newShapeName) {
 
 void MainWidget::handleDataChange(int dataInd, int newValue) {
     currentShape->setData(dataInd, newValue);
+    if (currentShape->calculatePoints()) { redrawShapes(); }
+}
+
+void MainWidget::handleCenterXCoordChange(int x) {
+    currentShape->setCenterXCoord(x);
+    if (currentShape->calculatePoints()) { redrawShapes(); }
+}
+
+void MainWidget::handleCenterYCoordChange(int y) {
+    currentShape->setCenterYCoord(y);
+    if (currentShape->calculatePoints()) { redrawShapes(); }
 }
 
 void MainWidget::selectDrawnShape(int index) {
@@ -92,7 +102,7 @@ void MainWidget::selectDrawnShape(int index) {
 void MainWidget::addNewShape(Shape* shape) {
     shapesList.insert(shapesList.begin(), shape);
     sideBar->addDrawnShape(shape->getName());
-    drawCanvas->update();
+    redrawShapes();
 }
 
 void MainWidget::redrawShapes() {
@@ -103,7 +113,7 @@ void MainWidget::removeDrawnShape(int index) {
     Shape* removedShape = shapesList.at(index);
     delete removedShape;
     shapesList.remove(index);
-    drawCanvas->update();
+    redrawShapes();
 }
 
 void MainWidget::removeDrawnShapes() {
@@ -124,7 +134,6 @@ QGridLayout* MainWidget::createGridLayout() {
     QGridLayout* layout = new QGridLayout(this);
     layout->setSpacing(6);
     layout->setContentsMargins(11, 11, 11, 11);
-    layout->setObjectName("gridLayout");
     layout->setSizeConstraint(QLayout::SetMinAndMaxSize);
     layout->setColumnStretch(0, 1);
     layout->setColumnStretch(1, 5);

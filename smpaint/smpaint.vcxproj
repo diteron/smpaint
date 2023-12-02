@@ -100,6 +100,7 @@
     </QtMoc>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="plugins\plugin_interface.cpp" />
     <ClCompile Include="ui\menu.cpp" />
     <ClCompile Include="shapes\line.cpp" />
     <ClCompile Include="shapes\parallelogram.cpp" />
@@ -116,6 +117,8 @@
     <QtMoc Include="ui\drawcanvas.h" />
     <QtMoc Include="ui\sidebar.h" />
     <QtMoc Include="ui\menu.h" />
+    <ClInclude Include="plugins\stdafx.h" />
+    <ClInclude Include="plugins\plugin_interface.h" />
     <ClInclude Include="shapes\line.h" />
     <ClInclude Include="shapes\parallelogram.h" />
     <ClInclude Include="shapes\rectangle.h" />

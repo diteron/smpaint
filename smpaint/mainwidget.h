@@ -18,10 +18,11 @@ public:
 
     void setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowHeight);
     void setCurrentShape(QString shapeName);
-    void setCurrentShape(QString shapeName, QVector<int>& shapeData);
+    void setCurrentShape(QString shapeName, const QVector<int>& shapeData);
     void setCurrentShape(Shape* shape);
 
     Shape* getCurrentShape() { return currentShape; }
+    Shape* getLastShape() { return shapesList.first(); }     // New shapes are adding to the beginning of the shapes list, so first is last
     QVector<Shape*>& getShapesList() { return shapesList; }
 
     void addNewShape(Shape* shape);
@@ -34,6 +35,8 @@ public:
 public slots:
     void handleShapeChange(QString newShapeName);
     void handleDataChange(int dataInd, int newValue);
+    void handleCenterXCoordChange(int x);
+    void handleCenterYCoordChange(int y);
     void selectDrawnShape(int index);
 
 private:

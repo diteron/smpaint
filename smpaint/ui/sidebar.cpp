@@ -5,10 +5,10 @@
 SideBar::SideBar(QWidget* parent, int spacing,
                  int itemsSpacing, int maxWidth) : QVBoxLayout(parent) {
     this->setSpacing(spacing);
-    this->setObjectName("SideBar");
     createSelectArea(itemsSpacing);
     createCoordinatesArea(itemsSpacing, maxWidth);
     createShapeDataArea(itemsSpacing, maxWidth);
+    createEditPluginsArea(itemsSpacing, maxWidth);
     sideBarSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
     this->addItem(sideBarSpacer);
 }
@@ -31,6 +31,14 @@ void SideBar::setShapeCoordinates(const Point& center) {
     ySpinBox->setValue(center.y());
 }
 
+void SideBar::setCurrentShape(const QString& shapeName) {
+    shapesComboBox->setCurrentText(shapeName);
+}
+
+void SideBar::addEditPluginUi(QWidget* label, QWidget* field) {
+    editPluginsLayout->addRow(label, field);
+}
+
 void SideBar::createShapeDataFields(Shape* shape) {
     // Delete old rows
     if (shapeDataLayout->rowCount() > 0) {
@@ -43,11 +51,10 @@ void SideBar::createShapeDataFields(Shape* shape) {
     QVector<DataField> fields = shape->getDataFields();
     QVector<int> shapeData = shape->getData();
     for (unsigned i = 0; i < fields.size(); ++i) {
-        QLabel* label = createLabel(this->parentWidget(), "Field " + std::to_string(i), fields[i].getFieldName());
-        QSpinBox* spinbox = createSpinBox(this->parentWidget(), "SpinBox " + std::to_string(i),
-                                          90, 0, 1000, shapeData[i]);
+        QLabel* label = createLabel(this->parentWidget(), fields[i].getFieldName());
+        QSpinBox* spinbox = createSpinBox(this->parentWidget(), 90, 0, 1000, shapeData[i]);
         spinbox->connect(spinbox, &QSpinBox::valueChanged, MainWidget::instance(),
-                         [=](int value) { return shape->setData(i, value); } );
+                         [=](int value) { return MainWidget::instance()->handleDataChange(i, value); } );
         shapeDataLayout->insertRow(i, label, spinbox);
     }
 }
@@ -55,23 +62,22 @@ void SideBar::createShapeDataFields(Shape* shape) {
 void SideBar::createSelectArea(int spacing) {
     selectLayout = new QFormLayout(this->parentWidget());
     selectLayout->setSpacing(spacing);
-    selectLayout->setObjectName("selectLayout");
 
-    shapesLabel = createLabel(this->parentWidget(), "shapesLabel", "Select shape: ");
-    shapesComboBox = createCombobox(this->parentWidget(), "shapesComboBox", 120);
+    shapesLabel = createLabel(this->parentWidget(), "Select shape: ");
+    shapesComboBox = createCombobox(this->parentWidget(), 120);
     shapesComboBox->connect(shapesComboBox, &QComboBox::currentTextChanged,
                             MainWidget::instance(), &MainWidget::handleShapeChange);
     shapesComboBox->connect(shapesComboBox, &QComboBox::textActivated,
                             MainWidget::instance(), &MainWidget::handleShapeChange);
     selectLayout->addRow(shapesLabel, shapesComboBox);
 
-    drawnShapesLabel = createLabel(this->parentWidget(), "drawnShapesLabel", "Drawn shapes: ");
-    drawnShapesComboBox = createCombobox(this->parentWidget(), "drawnShapesComboBox", 120);
+    drawnShapesLabel = createLabel(this->parentWidget(), "Drawn shapes: ");
+    drawnShapesComboBox = createCombobox(this->parentWidget(), 120);
     drawnShapesComboBox->connect(drawnShapesComboBox, &QComboBox::activated,
                                  MainWidget::instance(), &MainWidget::selectDrawnShape);
     selectLayout->addRow(drawnShapesLabel, drawnShapesComboBox);
 
-    deleteButton = createPushButton(this->parentWidget(), "deleteButton", "Delete shape", 90);
+    deleteButton = createPushButton(this->parentWidget(), "Delete shape", 90);
     deleteButton->connect(deleteButton, &QPushButton::clicked,
                         this, &SideBar::handleDeleteButtonClick);
     selectLayout->setWidget(3, QFormLayout::FieldRole, deleteButton);
@@ -79,18 +85,14 @@ void SideBar::createSelectArea(int spacing) {
     this->addLayout(selectLayout);
 }
 
-QLabel* SideBar::createLabel(QWidget* parent, const std::string qtObjName,
-                             const QString labelText) {
+QLabel* SideBar::createLabel(QWidget* parent, const QString labelText) {
     QLabel* label = new QLabel(parent);
-    label->setObjectName(qtObjName);
     label->setText(labelText);
     return label;
 }
 
-QComboBox* SideBar::createCombobox(QWidget* parent, const char* qtObjName,
-                                   int maxWidth) {
+QComboBox* SideBar::createCombobox(QWidget* parent, int maxWidth) {
     QComboBox* comboBox = new QComboBox(parent);
-    comboBox->setObjectName(qtObjName);
     comboBox->setMaximumSize(QSize(maxWidth, 16777215));
     return comboBox;
 }
@@ -101,16 +103,19 @@ void SideBar::createCoordinatesArea(int spacing, int maxWidth) {
 
     coordLayout = new QFormLayout(this->parentWidget());
     coordLayout->setSpacing(spacing);
-    coordLayout->setObjectName("coordLayout");
 
-    xLabel = createLabel(this->parentWidget(), "xLabel", "x:     ");
-    xSpinBox = createSpinBox(this->parentWidget(), "xSpinBox", 90, 0, 1000, 0);
+    xLabel = createLabel(this->parentWidget(), "x:     ");
+    xSpinBox = createSpinBox(this->parentWidget(), 90, 0, 1000, 0);
+    xSpinBox->connect(xSpinBox, &QSpinBox::valueChanged, MainWidget::instance(),
+                     &MainWidget::handleCenterXCoordChange);
     coordLayout->addRow(xLabel, xSpinBox);
-    yLabel = createLabel(this->parentWidget(), "yLabel", "y:     ");
-    ySpinBox = createSpinBox(this->parentWidget(), "ySpinBox", 90, 0, 1000, 0);
+    yLabel = createLabel(this->parentWidget(), "y:     ");
+    ySpinBox = createSpinBox(this->parentWidget(), 90, 0, 1000, 0);
+    ySpinBox->connect(ySpinBox, &QSpinBox::valueChanged, MainWidget::instance(),
+                      &MainWidget::handleCenterYCoordChange);
     coordLayout->addRow(yLabel, ySpinBox);
 
-    drawButton = createPushButton(this->parentWidget(), "drawButton", "Draw", 90);
+    drawButton = createPushButton(this->parentWidget(), "Draw", 90);
     drawButton->connect(drawButton, &QPushButton::clicked,
                         this, &SideBar::handleDrawButtonClick);
     coordLayout->setWidget(3, QFormLayout::FieldRole, drawButton);
@@ -133,38 +138,31 @@ void SideBar::handleDeleteButtonClick() {
 
 void SideBar::handleDrawButtonClick() {
     Shape* drawingShape = MainWidget::instance()->getCurrentShape();
-
     Point center(xSpinBox->value(), ySpinBox->value());
     drawingShape->setCenter(center);
-
     if (drawingShape->calculatePoints()) {
-        if (drawingShape->isDrawn()) {      // Keep the drawn shape as current in case the user wants to move or edit that shape again
-            MainWidget::instance()->redrawShapes();
-            MainWidget::instance()->setCurrentShape(drawingShape);
-        }
-        else {
+        if (!drawingShape->isDrawn()) {
             MainWidget::instance()->addNewShape(drawingShape);
             drawingShape->setDrawn();
-            MainWidget::instance()->setCurrentShape(drawingShape->getName(),    // Create a new current shape
-                                                    drawingShape->getData());   // with data from the drawn shape
         }
+
+        Shape* lastShape = MainWidget::instance()->getLastShape();
+        MainWidget::instance()->setCurrentShape(lastShape->getName(),    // Create a new current shape
+                                                lastShape->getData());   // with data from the last drawn shape
     }
 }
 
-QSpinBox* SideBar::createSpinBox(QWidget* parent, const std::string qtObjName,
-                                 int maxWidth, int minValue, int maxValue, int defaultValue) {
+QSpinBox* SideBar::createSpinBox(QWidget* parent, int maxWidth,
+                                 int minValue, int maxValue, int defaultValue) {
     QSpinBox* spinBox = new QSpinBox(parent);
-    spinBox->setObjectName(qtObjName);
     spinBox->setMaximumSize(QSize(maxWidth, 16777215));
     spinBox->setRange(minValue, maxValue);
     spinBox->setValue(defaultValue);
     return spinBox;
 }
 
-QPushButton* SideBar::createPushButton(QWidget* parent, const char* qtObjName,
-                                       const char* buttonText, int maxWidth) {
+QPushButton* SideBar::createPushButton(QWidget* parent, const char* buttonText, int maxWidth) {
     QPushButton* pushButton = new QPushButton(buttonText, parent);
-    pushButton->setObjectName(qtObjName);
     pushButton->setMaximumSize(QSize(maxWidth, 16777215));
     return pushButton;
 }
@@ -175,9 +173,20 @@ void SideBar::createShapeDataArea(int spacing, int maxWidth) {
 
     shapeDataLayout = new QFormLayout(this->parentWidget());
     shapeDataLayout->setSpacing(spacing);
-    shapeDataLayout->setObjectName("shapeDataLayout");
 
     shapeDataGroupBox->setLayout(shapeDataLayout);
     this->addLayout(shapeDataLayout);
     this->addWidget(shapeDataGroupBox);
+}
+
+void SideBar::createEditPluginsArea(int spacing, int maxWidth) {
+    editPluginsGroupBox = new QGroupBox("Edit shape", this->parentWidget());
+    editPluginsGroupBox->setMaximumSize(QSize(maxWidth, 16777215));
+
+    editPluginsLayout = new QFormLayout(this->parentWidget());
+    editPluginsLayout->setSpacing(spacing);
+
+    editPluginsGroupBox->setLayout(editPluginsLayout);
+    this->addLayout(editPluginsLayout);
+    this->addWidget(editPluginsGroupBox);
 }

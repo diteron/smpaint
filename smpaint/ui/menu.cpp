@@ -2,8 +2,7 @@
 #include "../mainwidget.h"
 #include "menu.h"
 
-SMenuBar::SMenuBar(QWidget* parent, QString objectName, int width) : QMenuBar(parent) {
-    setObjectName(objectName);
+SMenuBar::SMenuBar(QWidget* parent, int width) : QMenuBar(parent) {
     setGeometry(QRect(0, 0, width, 22));
     createFileSubmenu();
 }
@@ -44,28 +43,26 @@ void SMenuBar::handleSaveFile() {
 }
 
 void SMenuBar::createFileSubmenu() {
-    addSubmenu(&menuFile, "menuFile", "File");
-    addSubmenuAction(menuFile, &openAction, "openAction",
-                     this, "Open", "Ctrl+O");
+    addSubmenu(&menuFile, "File");
+    addSubmenuAction(this, menuFile, &openAction, "openAction",
+                     "Open", "Ctrl+O");
     openAction->connect(openAction, &QAction::triggered,
                         this, &SMenuBar::handleOpenFile);
-    addSubmenuAction(menuFile, &saveAction, "saveAction",
-                     this, "Save", "Ctrl+S");
+    addSubmenuAction(this, menuFile, &saveAction, "saveAction",
+                     "Save", "Ctrl+S");
     saveAction->connect(saveAction, &QAction::triggered,
                         this, &SMenuBar::handleSaveFile);
 }
 
-void SMenuBar::addSubmenu(QMenu** submenu, const QString& submenuName, const QString& title) {
+void SMenuBar::addSubmenu(QMenu** submenu, const QString& title) {
     *submenu = new QMenu(this);
-    (*submenu)->setObjectName(submenuName);
     this->addAction((*submenu)->menuAction());
     (*submenu)->setTitle(title);
 }
 
-void SMenuBar::addSubmenuAction(QMenu* submenu, QAction** action, const QString& actionName,
-                                QWidget* parent, const QString& title, const QString& shortcut) {
+void SMenuBar::addSubmenuAction(QWidget* parent, QMenu* submenu, QAction** action, const QString& actionName,
+                                const QString& title, const QString& shortcut) {
     (*action) = new QAction(parent);
-    (*action)->setObjectName(actionName);
     submenu->addAction(*action);
     (*action)->setText(title);
     (*action)->setShortcut(QKeySequence(shortcut));

@@ -17,6 +17,7 @@ public:
 
 private:
     void mousePressEvent(QMouseEvent* event) override;
+    void mouseMoveEvent(QMouseEvent* event) override;
     void paintEvent(QPaintEvent* event) override;
     void drawShapes(QPainter& painter, const QVector<Shape*>& shapes);
 };

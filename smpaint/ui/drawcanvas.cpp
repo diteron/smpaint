@@ -5,10 +5,10 @@
 DrawCanvas::DrawCanvas(QWidget* parent, const QRect& startGeometry,
                        const QSizePolicy& sizePolicy, const QSize& minSize,
                        const QPalette& backgroundColor) : QWidget(parent) {
-    this->setObjectName("drawCanvas");
     this->setGeometry(startGeometry);
     this->setSize(sizePolicy, minSize, QSize(0, 0));
     this->setBackgroundColor(backgroundColor);
+    this->setMouseTracking(true);
 }
 
 void DrawCanvas::setSize(const QSizePolicy &sizePolicy, const QSize &minSize, const QSize &baseSize) {
@@ -30,19 +30,23 @@ void DrawCanvas::setResizable() {
 
 void DrawCanvas::mousePressEvent(QMouseEvent* event) {
     Shape* drawingShape = MainWidget::instance()->getCurrentShape();
-    drawingShape->setCenter(event->pos());
+    if (!drawingShape->isDrawn()) {
+        MainWidget::instance()->addNewShape(drawingShape);
+        drawingShape->setDrawn();
+    }
 
-    if (drawingShape->calculatePoints()) {
-        if (drawingShape->isDrawn()) {      // Keep the drawn shape as current in case the user wants to move or edit that shape again
-            MainWidget::instance()->redrawShapes();
-            MainWidget::instance()->setCurrentShape(drawingShape);
-        }
-        else {
-            MainWidget::instance()->addNewShape(drawingShape);
-            drawingShape->setDrawn();
-            MainWidget::instance()->setCurrentShape(drawingShape->getName(),    // Create a new current shape
-                                                    drawingShape->getData());   // with data from the drawn shape
-        }
+    Shape* lastShape = MainWidget::instance()->getLastShape();
+    MainWidget::instance()->setCurrentShape(lastShape->getName(),    // Create a new current shape
+                                            lastShape->getData());   // with data from the last drawn shape
+}
+
+void DrawCanvas::mouseMoveEvent(QMouseEvent* event) {
+    Shape* movingShape = MainWidget::instance()->getCurrentShape();
+    movingShape->setCenter(event->pos());
+
+    if (movingShape->calculatePoints()) {
+        if (!movingShape->isMoved()) { movingShape->setMoved(); }
+        this->update();
     }
 }
 
@@ -60,6 +64,15 @@ void DrawCanvas::drawShapes(QPainter& painter, const QVector<Shape*>& shapes) {
     pen.setStyle(Qt::SolidLine);
     painter.setPen(pen);
 
+    // Draw the current shape
+    Shape* currentShape = MainWidget::instance()->getCurrentShape();
+    if (!currentShape->isDrawn()) {
+        QVector<Point> points = currentShape->getPoints();
+        for (unsigned i = 0; i < points.size() - 1; ++i) {
+            painter.drawLine(points[i], points[i + 1]);
+        }
+    }
+    // Draw the shapes in the shapes list
     for (Shape* shape : shapes) {
         QVector<Point> points = shape->getPoints();
         for (unsigned i = 0; i < points.size() - 1; ++i) {
