@@ -147,8 +147,9 @@ void SideBar::handleDrawButtonClick() {
         }
 
         Shape* lastShape = MainWidget::instance()->getLastShape();
-        MainWidget::instance()->setCurrentShape(lastShape->getName(),    // Create a new current shape
-                                                lastShape->getData());   // with data from the last drawn shape
+        MainWidget::instance()->setCurrentShape(lastShape->getName(),           // Create a new current shape
+                                                lastShape->getData(),           // with data from the last drawn shape
+                                                lastShape->getBorderColor());
     }
 }
 

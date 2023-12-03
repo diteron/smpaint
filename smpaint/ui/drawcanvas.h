@@ -1,6 +1,6 @@
 #pragma once
 
-#include <qwidget.h>
+//#include <qwidget.h>
 #include "../shapes/shape.h"
 
 class DrawCanvas : public QWidget {
@@ -20,4 +20,5 @@ private:
     void mouseMoveEvent(QMouseEvent* event) override;
     void paintEvent(QPaintEvent* event) override;
     void drawShapes(QPainter& painter, const QVector<Shape*>& shapes);
+    QPen createPen(int width, Qt::PenStyle style, const QColor& color);
 };

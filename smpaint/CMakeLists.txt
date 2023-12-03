@@ -19,10 +19,12 @@ find_package(Qt6Widgets REQUIRED)
 #=================== INCLUSION OF Project Files ====================#
 set(SHAPES_DIR "${CMAKE_SOURCE_DIR}/shapes")
 set(UI_DIR "${CMAKE_SOURCE_DIR}/ui")
+set(PLUGINS_DIR "${CMAKE_SOURCE_DIR}/plugins")
 set(CORE_DIR "${CMAKE_SOURCE_DIR}")
 
 include_directories(${SHAPES_DIR})
 include_directories(${UI_DIR})
+include_directories(${PLUGINS_DIR})
 include_directories(${CORE_DIR})
 
 file(GLOB SRC_FILES
@@ -30,6 +32,8 @@ file(GLOB SRC_FILES
     "${SHAPES_DIR}/*.h"
     "${UI_DIR}/*.cpp"
     "${UI_DIR}/*.h"
+    "${PLUGINS_DIR}/*.cpp"
+    "${PLUGINS_DIR}/*.h"
     "${CORE_DIR}/*.cpp"
     "${CORE_DIR}/*.h"
 )
@@ -53,6 +57,7 @@ target_precompile_headers(smpaint PRIVATE <QtWidgets>)
 # Add the target includes for smpaint 
 target_include_directories(smpaint PRIVATE ${SHAPES_DIR})
 target_include_directories(smpaint PRIVATE ${UI_DIR})
+target_include_directories(smpaint PRIVATE ${PLUGINS_DIR})
 target_include_directories(smpaint PRIVATE ${CORE_DIR})
 
 #===================== LINKING LIBRARIES =======================#

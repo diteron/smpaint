@@ -30,14 +30,17 @@ void DrawCanvas::setResizable() {
 
 void DrawCanvas::mousePressEvent(QMouseEvent* event) {
     Shape* drawingShape = MainWidget::instance()->getCurrentShape();
-    if (!drawingShape->isDrawn()) {
-        MainWidget::instance()->addNewShape(drawingShape);
-        drawingShape->setDrawn();
-    }
+    if (drawingShape->calculatePoints()) {
+        if (!drawingShape->isDrawn()) {
+            MainWidget::instance()->addNewShape(drawingShape);
+            drawingShape->setDrawn();
+        }
 
-    Shape* lastShape = MainWidget::instance()->getLastShape();
-    MainWidget::instance()->setCurrentShape(lastShape->getName(),    // Create a new current shape
-                                            lastShape->getData());   // with data from the last drawn shape
+        Shape* lastShape = MainWidget::instance()->getLastShape();
+        MainWidget::instance()->setCurrentShape(lastShape->getName(),           // Create a new current shape
+                                                lastShape->getData(),           // with data from the last drawn shape
+                                                lastShape->getBorderColor());
+    }
 }
 
 void DrawCanvas::mouseMoveEvent(QMouseEvent* event) {
@@ -58,15 +61,11 @@ void DrawCanvas::paintEvent(QPaintEvent* event) {
 }
 
 void DrawCanvas::drawShapes(QPainter& painter, const QVector<Shape*>& shapes) {
-    QPen pen;
-    pen.setWidth(1);
-    pen.setColor(Qt::black);
-    pen.setStyle(Qt::SolidLine);
-    painter.setPen(pen);
-
     // Draw the current shape
     Shape* currentShape = MainWidget::instance()->getCurrentShape();
     if (!currentShape->isDrawn()) {
+        QPen pen = createPen(1, Qt::SolidLine, currentShape->getBorderColor());
+        painter.setPen(pen);
         QVector<Point> points = currentShape->getPoints();
         for (unsigned i = 0; i < points.size() - 1; ++i) {
             painter.drawLine(points[i], points[i + 1]);
@@ -74,9 +73,19 @@ void DrawCanvas::drawShapes(QPainter& painter, const QVector<Shape*>& shapes) {
     }
     // Draw the shapes in the shapes list
     for (Shape* shape : shapes) {
+        QPen pen = createPen(1, Qt::SolidLine, shape->getBorderColor());
+        painter.setPen(pen);
         QVector<Point> points = shape->getPoints();
         for (unsigned i = 0; i < points.size() - 1; ++i) {
             painter.drawLine(points[i], points[i + 1]);
         }
     }
+}
+
+QPen DrawCanvas::createPen(int width, Qt::PenStyle style, const QColor& color) {
+    QPen pen;
+    pen.setWidth(width);
+    pen.setStyle(style);
+    pen.setColor(color);
+    return pen;
 }

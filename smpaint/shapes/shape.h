@@ -16,6 +16,7 @@ public:
     void setCenterYCoord(int y) { _centerCoord.setY(y); }
     void setData(const QVector<int>& data) { _data = data; };
     void setData(int dataInd, int newValue) { _data[dataInd] = newValue; };
+    void setBorderColor(const QColor& borderColor) { _borderColor = borderColor; }
     void setDrawn() { _drawn = true; }
     void setMoved() { _moved = true; }
     
@@ -23,6 +24,7 @@ public:
     QVector<int>& getData() { return _data; };
     const QVector<DataField>& getDataFields() { return _dataFields; };
     const QVector<Point>& getPoints() { return _points; };
+    const QColor& getBorderColor() { return _borderColor; }
     const QString getName() { return _name; }
     const bool isDrawn() { return _drawn; }
     const bool isMoved() { return _moved; }
@@ -43,6 +45,7 @@ protected:
     QVector<int> _data;
     QVector<DataField> _dataFields;
     QVector<Point> _points;
+    QColor _borderColor = Qt::black;
     bool _drawn = false;
     bool _moved = false;
 };

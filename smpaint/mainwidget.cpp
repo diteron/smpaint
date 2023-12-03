@@ -29,6 +29,7 @@ void MainWidget::setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowH
     SmpaintClass->setMenuBar(menuBar);
 
     sideBar = new SideBar(MainWidget::instance(), 20, 6, 180);
+    loadPlugins();
     sideBar->populateShapeCombobox(ShapeFactory::instance()->getShapesNames());
     gridLayout->addLayout(sideBar, 0, 0, 1, 1);
 }
@@ -49,18 +50,22 @@ void MainWidget::setCurrentShape(QString shapeName) {
     sideBar->setCurrentShape(currentShape->getName());
     sideBar->createShapeDataFields(currentShape);
     sideBar->setShapeCoordinates(currentShape->getCenter());
+    setPluginsCurrentShape(currentShape);
 }
 
-void MainWidget::setCurrentShape(QString shapeName, const QVector<int>& shapeData) {
+void MainWidget::setCurrentShape(QString shapeName, const QVector<int>& shapeData,
+                                 const QColor& borderColor) {
     if (currentShape != nullptr && !currentShape->isDrawn()) {
         delete currentShape;
     }
 
     currentShape = ShapeFactory::instance()->buildShape(shapeName);
     currentShape->setData(shapeData);
+    currentShape->setBorderColor(borderColor);
     sideBar->setCurrentShape(currentShape->getName());
     sideBar->createShapeDataFields(currentShape);
     sideBar->setShapeCoordinates(currentShape->getCenter());
+    setPluginsCurrentShape(currentShape);
 }
 
 void MainWidget::setCurrentShape(Shape* shape) {
@@ -68,6 +73,7 @@ void MainWidget::setCurrentShape(Shape* shape) {
     currentShape->setData(shape->getData());
     sideBar->createShapeDataFields(currentShape);
     sideBar->setShapeCoordinates(currentShape->getCenter());
+    setPluginsCurrentShape(currentShape);
 }
 
 void MainWidget::handleShapeChange(QString newShapeName) {
@@ -97,6 +103,13 @@ void MainWidget::selectDrawnShape(int index) {
     currentShape = shapesList[index];
     sideBar->createShapeDataFields(currentShape);
     sideBar->setShapeCoordinates(currentShape->getCenter());
+    setPluginsCurrentShape(currentShape);
+}
+
+void MainWidget::setPluginsCurrentShape(Shape* shape) {
+    for (ISmpPlugin* plugin : pluginsList) {
+        plugin->setCurrentShape(shape);
+    }
 }
 
 void MainWidget::addNewShape(Shape* shape) {
@@ -138,6 +151,31 @@ QGridLayout* MainWidget::createGridLayout() {
     layout->setColumnStretch(0, 1);
     layout->setColumnStretch(1, 5);
     return layout;
+}
+
+void MainWidget::loadPlugins() {
+    const auto staticInstances = QPluginLoader::staticInstances();
+    for (QObject* plugin : staticInstances) {
+        addPluginUi(plugin);
+    }
+
+    QDir pluginsDir = QDir(QCoreApplication::applicationDirPath());
+    QString dirname = pluginsDir.dirName();
+    const auto dirFiles = pluginsDir.entryList(QDir::Files);
+    for (const QString& fileName : dirFiles) {
+        QPluginLoader loader(pluginsDir.absoluteFilePath(fileName));
+        QObject* plugin = loader.instance();
+        if (plugin) {
+            addPluginUi(plugin);
+        }
+    }
+}
+
+void MainWidget::addPluginUi(QObject* plugin) {
+    auto iPlugin = qobject_cast<ISmpPlugin*>(plugin);
+    iPlugin->setupUi();
+    sideBar->addEditPluginUi(iPlugin->getPluginLabel(), iPlugin->getPluginField());
+    pluginsList.append(iPlugin);
 }
 
 DrawCanvas* MainWidget::createDrawCanvas(const QRect& startGeometry, const QSize& minSize,

@@ -57,6 +57,4 @@ private:
     QGroupBox* editPluginsGroupBox = nullptr;
 
     QSpacerItem* sideBarSpacer = nullptr;
-
-
 };

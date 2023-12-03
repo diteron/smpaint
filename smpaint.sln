@@ -5,6 +5,8 @@ VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "smpaint", "smpaint\smpaint.vcxproj", "{BEC3A493-0BBB-44D9-93B1-38C6B8032EA0}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "smpcolorizer", "smpcolorizer\smpcolorizer.vcxproj", "{C9D50371-B6FA-4851-BCC6-9FB3E9EB877B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -15,6 +17,10 @@ Global
 		{BEC3A493-0BBB-44D9-93B1-38C6B8032EA0}.Debug|x64.Build.0 = Debug|x64
 		{BEC3A493-0BBB-44D9-93B1-38C6B8032EA0}.Release|x64.ActiveCfg = Release|x64
 		{BEC3A493-0BBB-44D9-93B1-38C6B8032EA0}.Release|x64.Build.0 = Release|x64
+		{C9D50371-B6FA-4851-BCC6-9FB3E9EB877B}.Debug|x64.ActiveCfg = Debug|x64
+		{C9D50371-B6FA-4851-BCC6-9FB3E9EB877B}.Debug|x64.Build.0 = Debug|x64
+		{C9D50371-B6FA-4851-BCC6-9FB3E9EB877B}.Release|x64.ActiveCfg = Release|x64
+		{C9D50371-B6FA-4851-BCC6-9FB3E9EB877B}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

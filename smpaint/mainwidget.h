@@ -1,11 +1,12 @@
 #pragma once
 
-#include <qwidget.h>
+#include <QWidget>
 #include "ui/drawcanvas.h"
 #include "ui/sidebar.h"
 #include "ui/menu.h"
 #include "shapes/shape.h"
 #include "shapes/shapefactory.h"
+#include "plugins/ismpplugin.h"
 
 class MainWidget : public QWidget {
 
@@ -18,11 +19,11 @@ public:
 
     void setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowHeight);
     void setCurrentShape(QString shapeName);
-    void setCurrentShape(QString shapeName, const QVector<int>& shapeData);
+    void setCurrentShape(QString shapeName, const QVector<int>& shapeData, const QColor& borderColor);
     void setCurrentShape(Shape* shape);
 
     Shape* getCurrentShape() { return currentShape; }
-    Shape* getLastShape() { return shapesList.first(); }     // New shapes are adding to the beginning of the shapes list, so first is last
+    Shape* getLastShape() { return shapesList.first(); }     // New shapes are adding to the beginning of the shapes list, so the first is the last
     QVector<Shape*>& getShapesList() { return shapesList; }
 
     void addNewShape(Shape* shape);
@@ -41,6 +42,9 @@ public slots:
 
 private:
     QGridLayout* createGridLayout();
+    void loadPlugins();
+    void addPluginUi(QObject* plugin);
+    void setPluginsCurrentShape(Shape* shape);
     DrawCanvas* createDrawCanvas(const QRect& startGeometry, const QSize& minSize,
                                  const QColor& backgroundColor);
     QSizePolicy createExpandSizePolicy(int horizontalStretch, int verticalStretch);
@@ -56,4 +60,6 @@ private:
 
     QVector<Shape*> shapesList;
     Shape* currentShape = nullptr;
+
+    QVector<ISmpPlugin*> pluginsList;
 };

@@ -17,7 +17,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{BEC3A493-0BBB-44D9-93B1-38C6B8032EA0}</ProjectGuid>
+    <ProjectGuid>{C9D50371-B6FA-4851-BCC6-9FB3E9EB877B}</ProjectGuid>
     <Keyword>QtVS_v304</Keyword>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0.19041.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.19041.0</WindowsTargetPlatformVersion>
@@ -25,7 +25,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
@@ -61,10 +61,23 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <ExternalIncludePath>$(QTDIR)\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>$(ExternalIncludePath)</ExternalIncludePath>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <QtMoc>
+      <Include>
+      </Include>
+    </QtMoc>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -100,46 +113,15 @@
     </QtMoc>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ui\menu.cpp" />
-    <ClCompile Include="shapes\line.cpp" />
-    <ClCompile Include="shapes\parallelogram.cpp" />
-    <ClCompile Include="shapes\rectangle.cpp" />
-    <ClCompile Include="shapes\ellipse.cpp" />
-    <ClCompile Include="shapes\isosctriangle.cpp" />
-    <ClCompile Include="mainwidget.cpp" />
-    <ClCompile Include="shapes\shapefactory.cpp" />
-    <ClCompile Include="shapes\point.cpp" />
-    <ClCompile Include="shapes\shape.cpp" />
-    <ClCompile Include="ui\drawcanvas.cpp" />
-    <ClCompile Include="ui\sidebar.cpp" />
-    <QtMoc Include="mainwidget.h" />
-    <QtMoc Include="ui\drawcanvas.h" />
-    <QtMoc Include="ui\sidebar.h" />
-    <QtMoc Include="ui\menu.h" />
-    <ClInclude Include="plugins\ismpplugin.h" />
-    <ClInclude Include="plugins\stdafx.h" />
-    <ClInclude Include="shapes\line.h" />
-    <ClInclude Include="shapes\parallelogram.h" />
-    <ClInclude Include="shapes\rectangle.h" />
-    <ClInclude Include="shapes\ellipse.h" />
-    <ClInclude Include="shapes\isosctriangle.h" />
-    <ClInclude Include="shapes\shapefactory.h" />
-    <ClInclude Include="shapes\point.h" />
-    <ClInclude Include="shapes\shape.h" />
-    <ClInclude Include="smpaint.h" />
-    <ClInclude Include="shapes\stdafx.h" />
-    <ClInclude Include="ui\stdafx.h" />
-    <QtRcc Include="smpaint.qrc" />
-    <ClCompile Include="smpaint.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClInclude Include="stdafx.h" />
+    <ClCompile Include="smpcolorizer.cpp" />
     <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <QtMoc Include="smpcolorizer.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="plugins\ISmpPlugin" />
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
