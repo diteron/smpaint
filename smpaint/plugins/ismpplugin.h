@@ -8,7 +8,9 @@ class ISmpPlugin {
 public:
     virtual ~ISmpPlugin() = default;
     virtual void setupUi() = 0;
-    virtual void setCurrentShape(Shape* shape) = 0;
+    virtual void registerMainWidget(void* mainWidgetInst) = 0;
+    virtual void mousePress() = 0;
+
     virtual QWidget* getPluginLabel() const = 0;
     virtual QWidget* getPluginField() const = 0;
 };

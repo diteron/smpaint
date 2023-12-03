@@ -50,7 +50,6 @@ void MainWidget::setCurrentShape(QString shapeName) {
     sideBar->setCurrentShape(currentShape->getName());
     sideBar->createShapeDataFields(currentShape);
     sideBar->setShapeCoordinates(currentShape->getCenter());
-    setPluginsCurrentShape(currentShape);
 }
 
 void MainWidget::setCurrentShape(QString shapeName, const QVector<int>& shapeData,
@@ -65,7 +64,6 @@ void MainWidget::setCurrentShape(QString shapeName, const QVector<int>& shapeDat
     sideBar->setCurrentShape(currentShape->getName());
     sideBar->createShapeDataFields(currentShape);
     sideBar->setShapeCoordinates(currentShape->getCenter());
-    setPluginsCurrentShape(currentShape);
 }
 
 void MainWidget::setCurrentShape(Shape* shape) {
@@ -73,7 +71,6 @@ void MainWidget::setCurrentShape(Shape* shape) {
     currentShape->setData(shape->getData());
     sideBar->createShapeDataFields(currentShape);
     sideBar->setShapeCoordinates(currentShape->getCenter());
-    setPluginsCurrentShape(currentShape);
 }
 
 void MainWidget::handleShapeChange(QString newShapeName) {
@@ -103,13 +100,6 @@ void MainWidget::selectDrawnShape(int index) {
     currentShape = shapesList[index];
     sideBar->createShapeDataFields(currentShape);
     sideBar->setShapeCoordinates(currentShape->getCenter());
-    setPluginsCurrentShape(currentShape);
-}
-
-void MainWidget::setPluginsCurrentShape(Shape* shape) {
-    for (ISmpPlugin* plugin : pluginsList) {
-        plugin->setCurrentShape(shape);
-    }
 }
 
 void MainWidget::addNewShape(Shape* shape) {
@@ -174,6 +164,7 @@ void MainWidget::loadPlugins() {
 void MainWidget::addPluginUi(QObject* plugin) {
     auto iPlugin = qobject_cast<ISmpPlugin*>(plugin);
     iPlugin->setupUi();
+    iPlugin->registerMainWidget(instance());
     sideBar->addEditPluginUi(iPlugin->getPluginLabel(), iPlugin->getPluginField());
     pluginsList.append(iPlugin);
 }

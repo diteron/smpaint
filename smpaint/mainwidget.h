@@ -21,6 +21,7 @@ public:
     void setCurrentShape(QString shapeName);
     void setCurrentShape(QString shapeName, const QVector<int>& shapeData, const QColor& borderColor);
     void setCurrentShape(Shape* shape);
+    void setCurrentPlugin(ISmpPlugin* plugin) { currentPlugin = plugin; }
 
     Shape* getCurrentShape() { return currentShape; }
     Shape* getLastShape() { return shapesList.first(); }     // New shapes are adding to the beginning of the shapes list, so the first is the last
@@ -44,7 +45,6 @@ private:
     QGridLayout* createGridLayout();
     void loadPlugins();
     void addPluginUi(QObject* plugin);
-    void setPluginsCurrentShape(Shape* shape);
     DrawCanvas* createDrawCanvas(const QRect& startGeometry, const QSize& minSize,
                                  const QColor& backgroundColor);
     QSizePolicy createExpandSizePolicy(int horizontalStretch, int verticalStretch);
@@ -61,5 +61,6 @@ private:
     QVector<Shape*> shapesList;
     Shape* currentShape = nullptr;
 
+    ISmpPlugin* currentPlugin = nullptr;
     QVector<ISmpPlugin*> pluginsList;
 };

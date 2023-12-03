@@ -14,7 +14,9 @@ class SmpColorizer : public QObject, public ISmpPlugin {
 
 public:
     void setupUi() override;
-    void setCurrentShape(Shape* shape) override { currentShape = shape; }
+    void registerMainWidget(void* mainWidgetInst) override { mainWidgetInstance = static_cast<MainWidget*>(mainWidgetInst);  }
+    void mousePress() override {};
+
     QWidget* getPluginLabel() const override { return colorButton; }
     QWidget* getPluginField() const override { return field; }
 
@@ -22,9 +24,7 @@ public slots:
     void handleColorButtonClick();
 
 private:
-
-
-    Shape* currentShape = nullptr;
+    MainWidget* mainWidgetInstance = nullptr;
     QPushButton* colorButton = nullptr;
     QWidget* field = nullptr;
 };
