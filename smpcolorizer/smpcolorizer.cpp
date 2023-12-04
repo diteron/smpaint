@@ -3,7 +3,8 @@
 
 void SmpColorizer::setupUi() {
     colorButton = new QPushButton("Color");
-    colorButton->setMaximumSize(QSize(80, 16777215));
+    colorButton->setMaximumSize(QSize(100, 16777215));
+    colorButton->setMinimumWidth(80);
     colorButton->connect(colorButton, &QPushButton::clicked,
                          this, &SmpColorizer::handleColorButtonClick);
 }

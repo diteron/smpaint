@@ -4,6 +4,7 @@
 void MirrorReflector::setupUi() {
     mirrorButton = new QPushButton("Mirror image");
     mirrorButton->setMaximumSize(QSize(100, 16777215));
+    mirrorButton->setMinimumWidth(80);
     mirrorButton->connect(mirrorButton, &QPushButton::clicked,
                           this, &MirrorReflector::handleMirrorButtonClick);
 }
