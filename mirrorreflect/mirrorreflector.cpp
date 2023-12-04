@@ -38,8 +38,8 @@ void MirrorReflector::calculateMirrorImage(Shape* mirror) {
     QVector<Point> reflectedShapePoints = reflectedShape->getPoints();
     QVector<Point> combinedPoints = reflectedShapePoints;
     for (const Point& point : reflectedShapePoints) {
-        Point mirroredPoint = reflectPoint(point, coeffA, coeffB, coeffC);
-        combinedPoints.append(mirroredPoint);
+        Point reflectedPoint = reflectPoint(point, coeffA, coeffB, coeffC);
+        combinedPoints.append(reflectedPoint);
     }
     combinedPoints.last().setAsEndPoint();
     reflectedShape->setPoints(combinedPoints);
@@ -55,11 +55,13 @@ float MirrorReflector::findCoefficientC(const Point& point1, const Point& point2
                     / static_cast<float>(point2.x() - point1.x());
 }
 
-Point MirrorReflector::reflectPoint(const Point& point, float a, float b, float c) {
-    float temp = -2 * (a * point.x() + b * point.y() + c) / (a * a + b * b);
-    float x = temp * a + point.x();
-    float y = temp * b + point.y();
-    Point mirroredPoint(static_cast<int>(round(x)), static_cast<int>(round(y)));
+Point MirrorReflector::reflectPoint(const Point& point,
+                                    float mirrorCoeffA, float mirrorCoeffB, float mirrorCoeffC) {
+    float temp = -2 * (mirrorCoeffA * point.x() + mirrorCoeffB * point.y() + mirrorCoeffC) 
+                         / (mirrorCoeffA * mirrorCoeffA + mirrorCoeffB * mirrorCoeffB);
+    int mirroredPointX = static_cast<int>(round(temp * mirrorCoeffA + point.x()));
+    int mirroredPointY = static_cast<int>(round(temp * mirrorCoeffB + point.y()));
+    Point mirroredPoint(mirroredPointX, mirroredPointY);
     return mirroredPoint;
 }
 

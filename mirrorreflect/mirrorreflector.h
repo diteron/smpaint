@@ -26,7 +26,7 @@ private:
     void calculateMirrorImage(Shape* mirror);
     float findCoefficientA(const Point& point1, const Point& point2);
     float findCoefficientC(const Point& point1, const Point& point2);
-    Point reflectPoint(const Point& point, float a, float b, float c);
+    Point reflectPoint(const Point& point, float mirrorCoeffA, float mirrorCoeffB, float mirrorCoeffC);
 
     Shape* reflectedShape = nullptr;
     MainWidget* mainWidgetInstance = nullptr;
