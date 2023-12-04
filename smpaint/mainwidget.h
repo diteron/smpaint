@@ -1,6 +1,5 @@
 #pragma once
 
-#include <QWidget>
 #include "ui/drawcanvas.h"
 #include "ui/sidebar.h"
 #include "ui/menu.h"

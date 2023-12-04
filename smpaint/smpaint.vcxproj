@@ -65,6 +65,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Link>
+      <AdditionalDependencies>$(SolutionDir)$(Platform)\$(Configuration)\point.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -108,7 +113,6 @@
     <ClCompile Include="shapes\isosctriangle.cpp" />
     <ClCompile Include="mainwidget.cpp" />
     <ClCompile Include="shapes\shapefactory.cpp" />
-    <ClCompile Include="shapes\point.cpp" />
     <ClCompile Include="shapes\shape.cpp" />
     <ClCompile Include="ui\drawcanvas.cpp" />
     <ClCompile Include="ui\sidebar.cpp" />
@@ -124,7 +128,6 @@
     <ClInclude Include="shapes\ellipse.h" />
     <ClInclude Include="shapes\isosctriangle.h" />
     <ClInclude Include="shapes\shapefactory.h" />
-    <ClInclude Include="shapes\point.h" />
     <ClInclude Include="shapes\shape.h" />
     <ClInclude Include="smpaint.h" />
     <ClInclude Include="shapes\stdafx.h" />

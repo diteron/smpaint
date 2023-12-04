@@ -3,7 +3,7 @@
 #include <vector>
 #include <cmath>
 #include <qpainter.h>
-#include "point.h"
+#include "../../point/point.h"
 
 class DataField;
 

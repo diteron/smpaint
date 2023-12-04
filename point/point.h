@@ -1,6 +1,7 @@
 #pragma once
 
 #include <qpoint.h>
+#include <qdatastream.h>
 
 class Point {
 public:

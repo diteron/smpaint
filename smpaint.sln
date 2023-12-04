@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "smpcolorizer", "smpcolorize
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mirrorreflect", "mirrorreflect\mirrorreflect.vcxproj", "{EEE75E91-F017-454E-8F13-732827620E6D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "point", "point\point.vcxproj", "{B60243E5-07D2-42AF-878E-E76DA604FBA5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -27,6 +29,10 @@ Global
 		{EEE75E91-F017-454E-8F13-732827620E6D}.Debug|x64.Build.0 = Debug|x64
 		{EEE75E91-F017-454E-8F13-732827620E6D}.Release|x64.ActiveCfg = Release|x64
 		{EEE75E91-F017-454E-8F13-732827620E6D}.Release|x64.Build.0 = Release|x64
+		{B60243E5-07D2-42AF-878E-E76DA604FBA5}.Debug|x64.ActiveCfg = Debug|x64
+		{B60243E5-07D2-42AF-878E-E76DA604FBA5}.Debug|x64.Build.0 = Debug|x64
+		{B60243E5-07D2-42AF-878E-E76DA604FBA5}.Release|x64.ActiveCfg = Release|x64
+		{B60243E5-07D2-42AF-878E-E76DA604FBA5}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

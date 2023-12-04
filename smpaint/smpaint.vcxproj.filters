@@ -73,9 +73,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
-    <ClCompile Include="shapes\point.cpp">
-      <Filter>Source Files\shapes</Filter>
-    </ClCompile>
     <ClCompile Include="shapes\shapefactory.cpp">
       <Filter>Source Files\shapes</Filter>
     </ClCompile>
@@ -106,9 +103,6 @@
       <Filter>Header Files\core</Filter>
     </ClInclude>
     <ClInclude Include="shapes\stdafx.h">
-      <Filter>Header Files\shapes</Filter>
-    </ClInclude>
-    <ClInclude Include="shapes\point.h">
       <Filter>Header Files\shapes</Filter>
     </ClInclude>
     <ClInclude Include="shapes\shapefactory.h">

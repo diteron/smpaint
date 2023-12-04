@@ -1,12 +1,11 @@
-#include "stdafx.h"
 #include "point.h"
 
 Point::Point() {}
 
-Point::Point(int xPos, int yPos) 
+Point::Point(int xPos, int yPos)
     : _x(xPos), _y(yPos), _endPoint(false) {}
 
-Point::Point(int xPos, int yPos, bool isEndPoint) 
+Point::Point(int xPos, int yPos, bool isEndPoint)
     : _x(xPos), _y(yPos), _endPoint(isEndPoint) {}
 
 Point::Point(QPoint point) : _endPoint(false) {
@@ -28,7 +27,7 @@ QDataStream& operator<<(QDataStream& out, const Point& point) {
 
 QDataStream& operator>>(QDataStream& in, Point& point) {
     in >> point._x
-       >> point._y
-       >> point._endPoint;
+        >> point._y
+        >> point._endPoint;
     return in;
 }

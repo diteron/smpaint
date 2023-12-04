@@ -33,4 +33,3 @@ private:
     QPushButton* mirrorButton = nullptr;
     QWidget* field = nullptr;
 };
-

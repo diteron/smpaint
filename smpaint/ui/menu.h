@@ -1,6 +1,5 @@
 #pragma once
 
-#include <qmenu.h>
 #include "../shapes/shape.h"
 
 class SMenuBar : public QMenuBar {
