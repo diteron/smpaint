@@ -30,6 +30,8 @@ void DrawCanvas::setResizable() {
 
 void DrawCanvas::mousePressEvent(QMouseEvent* event) {
     Shape* drawingShape = MainWidget::instance()->getCurrentShape();
+    drawingShape->setCenter(event->pos());
+
     if (drawingShape->calculatePoints()) {
         ISmpPlugin* currentPlugin = MainWidget::instance()->getCurrentPlugin();
         if (currentPlugin) {
@@ -41,7 +43,6 @@ void DrawCanvas::mousePressEvent(QMouseEvent* event) {
                 MainWidget::instance()->addNewShape(drawingShape);
                 drawingShape->setDrawn();
             }
-
             Shape* lastShape = MainWidget::instance()->getLastShape();
             MainWidget::instance()->setCurrentShape(lastShape->getName(),           // Create a new current shape
                                                     lastShape->getData(),           // with data from the last drawn shape
@@ -52,8 +53,9 @@ void DrawCanvas::mousePressEvent(QMouseEvent* event) {
 
 void DrawCanvas::mouseMoveEvent(QMouseEvent* event) {
     Shape* movingShape = MainWidget::instance()->getCurrentShape();
-    movingShape->setCenter(event->pos());
+    if (movingShape->isDrawn()) { return; }
 
+    movingShape->setCenter(event->pos());
     if (movingShape->calculatePoints()) {
         if (!movingShape->isMoved()) { movingShape->setMoved(); }
         this->update();

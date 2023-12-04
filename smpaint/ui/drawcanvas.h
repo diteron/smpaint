@@ -1,6 +1,5 @@
 #pragma once
 
-//#include <qwidget.h>
 #include "../shapes/shape.h"
 
 class DrawCanvas : public QWidget {

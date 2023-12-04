@@ -43,7 +43,6 @@ void MirrorReflector::calculateMirrorImage(Shape* mirror) {
     }
     combinedPoints.last().setAsEndPoint();
     reflectedShape->setPoints(combinedPoints);
-    reflectedShape->setCenter(mirror->getCenter());
 }
 
 float MirrorReflector::findCoefficientA(const Point& point1, const Point& point2) {
