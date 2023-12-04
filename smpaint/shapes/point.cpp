@@ -3,28 +3,32 @@
 
 Point::Point() {}
 
-Point::Point(int xPos, int yPos) : QPoint(xPos, yPos) {}
+Point::Point(int xPos, int yPos) 
+    : _x(xPos), _y(yPos), _endPoint(false) {}
 
 Point::Point(int xPos, int yPos, bool isEndPoint) 
-    : QPoint(xPos, yPos), _endPoint(isEndPoint) {}
+    : _x(xPos), _y(yPos), _endPoint(isEndPoint) {}
 
-Point& Point::setAsEndPoint() { _endPoint = true; return *this; }
+Point::Point(QPoint point) : _endPoint(false) {
+    _x = point.x();
+    _y = point.y();
+}
 
-bool Point::isEndPoint() { return _endPoint; }
+Point::operator QPoint() const {
+    QPoint qpoint(_x, _y);
+    return qpoint;
+}
 
 QDataStream& operator<<(QDataStream& out, const Point& point) {
-    out << point.x()
-        << point.y()
+    out << point._x
+        << point._y
         << point._endPoint;
     return out;
 }
 
 QDataStream& operator>>(QDataStream& in, Point& point) {
-    int x, y;
-    in >> x
-       >> y
+    in >> point._x
+       >> point._y
        >> point._endPoint;
-    point.setX(x);
-    point.setY(y);
     return in;
 }
