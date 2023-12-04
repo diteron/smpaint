@@ -31,15 +31,22 @@ void DrawCanvas::setResizable() {
 void DrawCanvas::mousePressEvent(QMouseEvent* event) {
     Shape* drawingShape = MainWidget::instance()->getCurrentShape();
     if (drawingShape->calculatePoints()) {
-        if (!drawingShape->isDrawn()) {
-            MainWidget::instance()->addNewShape(drawingShape);
-            drawingShape->setDrawn();
+        ISmpPlugin* currentPlugin = MainWidget::instance()->getCurrentPlugin();
+        if (currentPlugin) {
+            currentPlugin->mousePress();
+            MainWidget::instance()->redrawShapes();
         }
+        else {
+            if (!drawingShape->isDrawn()) {
+                MainWidget::instance()->addNewShape(drawingShape);
+                drawingShape->setDrawn();
+            }
 
-        Shape* lastShape = MainWidget::instance()->getLastShape();
-        MainWidget::instance()->setCurrentShape(lastShape->getName(),           // Create a new current shape
-                                                lastShape->getData(),           // with data from the last drawn shape
-                                                lastShape->getBorderColor());
+            Shape* lastShape = MainWidget::instance()->getLastShape();
+            MainWidget::instance()->setCurrentShape(lastShape->getName(),           // Create a new current shape
+                                                    lastShape->getData(),           // with data from the last drawn shape
+                                                    lastShape->getBorderColor());
+        }
     }
 }
 
@@ -68,6 +75,7 @@ void DrawCanvas::drawShapes(QPainter& painter, const QVector<Shape*>& shapes) {
         painter.setPen(pen);
         QVector<Point> points = currentShape->getPoints();
         for (unsigned i = 0; i < points.size() - 1; ++i) {
+            if (points[i].isEndPoint()) { continue; }
             painter.drawLine(points[i], points[i + 1]);
         }
     }
@@ -77,6 +85,7 @@ void DrawCanvas::drawShapes(QPainter& painter, const QVector<Shape*>& shapes) {
         painter.setPen(pen);
         QVector<Point> points = shape->getPoints();
         for (unsigned i = 0; i < points.size() - 1; ++i) {
+            if (points[i].isEndPoint()) { continue; }
             painter.drawLine(points[i], points[i + 1]);
         }
     }

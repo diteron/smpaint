@@ -16,6 +16,7 @@ public:
     void setCenterYCoord(int y) { _centerCoord.setY(y); }
     void setData(const QVector<int>& data) { _data = data; };
     void setData(int dataInd, int newValue) { _data[dataInd] = newValue; };
+    void setPoints(QVector<Point> points) { _points = points; }
     void setBorderColor(const QColor& borderColor) { _borderColor = borderColor; }
     void setDrawn() { _drawn = true; }
     void setMoved() { _moved = true; }

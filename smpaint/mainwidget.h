@@ -26,6 +26,7 @@ public:
     Shape* getCurrentShape() { return currentShape; }
     Shape* getLastShape() { return shapesList.first(); }     // New shapes are adding to the beginning of the shapes list, so the first is the last
     QVector<Shape*>& getShapesList() { return shapesList; }
+    ISmpPlugin* getCurrentPlugin() { return currentPlugin; }
 
     void addNewShape(Shape* shape);
     void redrawShapes();

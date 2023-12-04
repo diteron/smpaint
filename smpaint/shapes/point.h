@@ -15,6 +15,9 @@ public:
     Point& setAsEndPoint();
     bool isEndPoint();
 
+    friend QDataStream& operator<<(QDataStream& out, const Point& shape);
+    friend QDataStream& operator>>(QDataStream& in, Point& shape);
+
 private:
     bool _endPoint = false;
 };

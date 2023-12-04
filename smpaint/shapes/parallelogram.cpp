@@ -30,7 +30,9 @@ bool Parallelogram::calculatePoints() {
                 Point(_centerCoord.x() - (halfSideX - halfSideXPart), _centerCoord.y() - halfHeight),
                 Point(_centerCoord.x() + (halfSideX + halfSideXPart), _centerCoord.y() - halfHeight),
                 Point(_centerCoord.x() + (halfSideX - halfSideXPart), _centerCoord.y() + halfHeight) };
-    _points.append(_points[0].setAsEndPoint());      // Close shape points
+    // Close shape points
+    Point endPoint = _points[0];
+    _points.append(endPoint.setAsEndPoint());
 
     return true;
 }

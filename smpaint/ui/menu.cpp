@@ -88,7 +88,7 @@ void SMenuBar::deserializeShapesList(QDataStream& inputStream, QVector<Shape*>& 
         newShape->setDrawn();
     }
 
-    MainWidget::instance()->updateDrawCanvas();
+    MainWidget::instance()->redrawShapes();
 }
 
 void SMenuBar::serializeShapesList(QDataStream& outputStream, const QVector<Shape*>& shapesList) {
