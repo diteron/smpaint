@@ -52,7 +52,7 @@ void MainWidget::setCurrentShape(QString shapeName) {
     sideBar->setShapeCoordinates(currentShape->getCenter());
 }
 
-void MainWidget::setCurrentShape(QString shapeName, const QVector<int>& shapeData,
+void MainWidget::setCurrentShape(QString shapeName, const QVector<std::pair<int, shproperty>>& shapeData,
                                  const QColor& borderColor) {
     if (currentShape != nullptr && !currentShape->isDrawn()) {
         delete currentShape;

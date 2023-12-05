@@ -6,13 +6,13 @@ const bool Rectangle::registeredShape = ShapeFactory::instance()->registerShape(
 Rectangle::Rectangle() : Shape("Rectangle") {
     createFields();
     for (unsigned i = 0; i < _dataFields.size(); ++i) {
-        _data.append(_dataFields[i].getDefaultValue());
+        _data.append(std::make_pair(_dataFields[i].getDefaultValue(), _dataFields[i].getProperty()));
     }
 }
 
 bool Rectangle::calculatePoints() {
-    int halfWidth = static_cast<int>(_data[0] / 2);
-    int halfHeight = static_cast<int>(_data[1] / 2);
+    int halfWidth = static_cast<int>(_data[0].first / 2);
+    int halfHeight = static_cast<int>(_data[1].first / 2);
 
     _points = { Point(_centerCoord.x() - halfWidth, _centerCoord.y() + halfHeight),
                 Point(_centerCoord.x() - halfWidth, _centerCoord.y() - halfHeight),
@@ -26,7 +26,7 @@ bool Rectangle::calculatePoints() {
 }
 
 void Rectangle::createFields() {
-    _dataFields = { DataField("Width", 50),
-                    DataField("Height", 60) };
+    _dataFields = { DataField("Width", 50, Shape::Scalable),
+                    DataField("Height", 60, Shape::Scalable) };
 }
 

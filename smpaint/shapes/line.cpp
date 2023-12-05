@@ -6,13 +6,13 @@ const bool Line::registeredShape = ShapeFactory::instance()->registerShape("Line
 Line::Line() : Shape("Line") {
     createFields();
     for (unsigned i = 0; i < _dataFields.size(); ++i) {
-        _data.append(_dataFields[i].getDefaultValue());
+        _data.append(std::make_pair(_dataFields[i].getDefaultValue(), _dataFields[i].getProperty()));
     }
 }
 
 bool Line::calculatePoints() {
-    float angleInRad = toRad(_data[1]);
-    int halfLength = static_cast<int>(_data[0] / 2);
+    float angleInRad = toRad(_data[1].first);
+    int halfLength = static_cast<int>(_data[0].first / 2);
     int xOffset = static_cast<int>(halfLength * cos(angleInRad));
     int yOffset = static_cast<int>(halfLength * sin(angleInRad));
 
@@ -24,8 +24,8 @@ bool Line::calculatePoints() {
 }
 
 void Line::createFields() {
-    _dataFields = { DataField("Length", 150),
-                    DataField("Angle", 0) };
+    _dataFields = { DataField("Length", 150, Shape::Scalable),
+                    DataField("Angle", 0, Shape::Const) };
 }
 
 float Line::toRad(int degree) {

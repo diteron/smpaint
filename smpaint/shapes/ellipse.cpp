@@ -6,7 +6,7 @@ const bool Ellipse::registeredShape = ShapeFactory::instance()->registerShape("E
 Ellipse::Ellipse() : Shape("Ellipse") {
     createFields();
     for (unsigned i = 0; i < _dataFields.size(); ++i) {
-        _data.append(_dataFields[i].getDefaultValue());
+        _data.append(std::make_pair(_dataFields[i].getDefaultValue(), _dataFields[i].getProperty()));
     }
 }
 
@@ -18,8 +18,8 @@ bool Ellipse::calculatePoints() {
     }
 
     int x, y;
-    int xRadius = _data[0];
-    int yRadius = _data[1];
+    int xRadius = _data[0].first;
+    int yRadius = _data[1].first;
     Point point;
 
     for (unsigned i = 0; i < pointsNum; ++i) {
@@ -37,7 +37,7 @@ bool Ellipse::calculatePoints() {
 }
 
 void Ellipse::createFields() {
-    _dataFields = { DataField("x radius", 50),
-                    DataField("y radius", 30) };
+    _dataFields = { DataField("x radius", 50, Shape::Scalable),
+                    DataField("y radius", 30, Shape::Scalable) };
 }
 

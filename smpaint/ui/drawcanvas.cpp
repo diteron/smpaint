@@ -36,7 +36,7 @@ void DrawCanvas::mousePressEvent(QMouseEvent* event) {
         ISmpPlugin* currentPlugin = MainWidget::instance()->getCurrentPlugin();
         if (currentPlugin) {
             currentPlugin->mousePress();
-            MainWidget::instance()->redrawShapes();
+            this->update();
         }
         else {
             if (!drawingShape->isDrawn()) {

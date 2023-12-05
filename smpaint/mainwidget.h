@@ -18,7 +18,8 @@ public:
 
     void setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowHeight);
     void setCurrentShape(QString shapeName);
-    void setCurrentShape(QString shapeName, const QVector<int>& shapeData, const QColor& borderColor);
+    void setCurrentShape(QString shapeName, const QVector<std::pair<int, shproperty>>& shapeData,
+                         const QColor& borderColor);
     void setCurrentShape(Shape* shape);
     void setCurrentPlugin(ISmpPlugin* plugin) { currentPlugin = plugin; }
 

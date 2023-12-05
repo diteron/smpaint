@@ -7,15 +7,15 @@ const bool Parallelogram::registeredShape = ShapeFactory::instance()->registerSh
 Parallelogram::Parallelogram() : Shape("Parallelogram") {
     createFields();
     for (unsigned i = 0; i < _dataFields.size(); ++i) {
-        _data.append(_dataFields[i].getDefaultValue());
+        _data.append(std::make_pair(_dataFields[i].getDefaultValue(), _dataFields[i].getProperty()));
     }
 }
 
 bool Parallelogram::calculatePoints() {
-    float angleInRad = toRad(_data[2]);
-    int halfSideX = static_cast<int>(_data[0] / 2);
-    int halfSideY = static_cast<int>(_data[1] / 2);
-    int halfHeight = static_cast<int>((_data[1] * sin(angleInRad)) / 2);
+    float angleInRad = toRad(_data[2].first);
+    int halfSideX = static_cast<int>(_data[0].first / 2);
+    int halfSideY = static_cast<int>(_data[1].first / 2);
+    int halfHeight = static_cast<int>((_data[1].first * sin(angleInRad)) / 2);
 
     /*     _________________
           /       /        /
@@ -38,9 +38,9 @@ bool Parallelogram::calculatePoints() {
 }
 
 void Parallelogram::createFields() {
-    _dataFields = { DataField("Side x", 90),
-                    DataField("Side y", 70),
-                    DataField("Angle", 45) };
+    _dataFields = { DataField("Side x", 90, Shape::Scalable),
+                    DataField("Side y", 70, Shape::Scalable),
+                    DataField("Angle", 45, Shape::Const) };
 }
 
 float Parallelogram::toRad(int degree) {

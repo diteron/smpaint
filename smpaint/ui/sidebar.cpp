@@ -49,10 +49,10 @@ void SideBar::createShapeDataFields(Shape* shape) {
     }
 
     QVector<DataField> fields = shape->getDataFields();
-    QVector<int> shapeData = shape->getData();
+    QVector<std::pair<int, shproperty>> shapeData = shape->getData();
     for (unsigned i = 0; i < fields.size(); ++i) {
         QLabel* label = createLabel(this->parentWidget(), fields[i].getFieldName());
-        QSpinBox* spinbox = createSpinBox(this->parentWidget(), 90, 0, 1000, shapeData[i]);
+        QSpinBox* spinbox = createSpinBox(this->parentWidget(), 90, 0, 1000, shapeData[i].first);
         spinbox->connect(spinbox, &QSpinBox::valueChanged, MainWidget::instance(),
                          [=](int value) { return MainWidget::instance()->handleDataChange(i, value); } );
         shapeDataLayout->insertRow(i, label, spinbox);
