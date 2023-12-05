@@ -29,6 +29,7 @@ public:
     ISmpPlugin* getCurrentPlugin() { return currentPlugin; }
 
     void addNewShape(Shape* shape);
+    void addShapesList(const QVector<Shape*>& shapes);
     void redrawShapes();
     void removeDrawnShape(int index);
     void removeDrawnShapes();
@@ -44,6 +45,7 @@ public slots:
 
 private:
     QGridLayout* createGridLayout();
+    const QStringList getShapesNames();
     void loadPlugins();
     void addPluginUi(QObject* plugin);
     DrawCanvas* createDrawCanvas(const QRect& startGeometry, const QSize& minSize,

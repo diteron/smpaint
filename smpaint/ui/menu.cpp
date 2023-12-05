@@ -70,7 +70,7 @@ void SMenuBar::addSubmenuAction(QWidget* parent, QMenu* submenu, QAction** actio
 
 void SMenuBar::deserializeShapesList(QDataStream& inputStream, QVector<Shape*>& shapesList) {
     QString shapeName;
-
+    QVector<Shape*> loadingShapes;
     while (!inputStream.atEnd()) {
         // Read shape name and build a corresponding new blank shape
         inputStream >> shapeName;   
@@ -84,11 +84,10 @@ void SMenuBar::deserializeShapesList(QDataStream& inputStream, QVector<Shape*>& 
         }
         // Write shape data from a file to the new shape
         inputStream >> *newShape;
-        MainWidget::instance()->addNewShape(newShape);
         newShape->setDrawn();
+        loadingShapes.append(newShape);
     }
-
-    MainWidget::instance()->redrawShapes();
+    MainWidget::instance()->addShapesList(loadingShapes);
 }
 
 void SMenuBar::serializeShapesList(QDataStream& outputStream, const QVector<Shape*>& shapesList) {

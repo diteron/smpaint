@@ -108,6 +108,15 @@ void MainWidget::addNewShape(Shape* shape) {
     redrawShapes();
 }
 
+void MainWidget::addShapesList(const QVector<Shape*>& shapes) {
+    shapesList = shapes;
+    const QStringList shapesNames = getShapesNames();
+    sideBar->addDrawnShapes(shapesNames);
+    QString lastLoadedShapeName = getLastShape()->getName();
+    setCurrentShape(lastLoadedShapeName);
+    redrawShapes();
+}
+
 void MainWidget::redrawShapes() {
     drawCanvas->update();
 }
@@ -177,6 +186,14 @@ DrawCanvas* MainWidget::createDrawCanvas(const QRect& startGeometry, const QSize
     canvas = new DrawCanvas(MainWidget::instance(), startGeometry,
                             sizePolicy, minSize, backgroundPalette);
     return canvas;
+}
+
+const QStringList MainWidget::getShapesNames() {
+    QStringList shapesNames;
+    for (Shape* shape : shapesList) {
+        shapesNames.append(shape->getName());
+    }
+    return shapesNames;
 }
 
 QSizePolicy MainWidget::createExpandSizePolicy(int horizontalStretch, int verticalStretch) {

@@ -19,7 +19,12 @@ void SideBar::populateShapeCombobox(const QStringList& items) {
 
 void SideBar::addDrawnShape(const QString& shapeName) {
     drawnShapesComboBox->insertItem(0, shapeName);
-    drawnShapesComboBox->setCurrentIndex(0);
+    drawnShapesComboBox->setCurrentIndex(-1);
+}
+
+void SideBar::addDrawnShapes(const QStringList shapesNames) {
+    drawnShapesComboBox->addItems(shapesNames);
+    drawnShapesComboBox->setCurrentIndex(-1);
 }
 
 void SideBar::clearDrawnShapes() {
