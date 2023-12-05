@@ -4,7 +4,7 @@
 #include <QPushButton>
 #include <QtPlugin>
 #include "../smpaint/plugins/ismpplugin.h"
-#include "../smpaint/mainwidget.h"
+#include "../smpaint/smpdrawer.h"
 
 class MirrorReflector : public QObject, public ISmpPlugin {
     Q_OBJECT
@@ -13,7 +13,7 @@ class MirrorReflector : public QObject, public ISmpPlugin {
 
 public:
     void setupUi() override;
-    void registerMainWidget(void* mainWidgetInst) override { mainWidgetInstance = static_cast<MainWidget*>(mainWidgetInst); }
+    void registerDrawer(void * drawer) override { drawerInstance = static_cast<SmpDrawer*>(drawer); }
     void mousePress() override;
 
     QWidget* getPluginLabel() const override { return mirrorButton; }
@@ -29,7 +29,7 @@ private:
     Point reflectPoint(const Point& point, float mirrorCoeffA, float mirrorCoeffB, float mirrorCoeffC);
 
     Shape* reflectedShape = nullptr;
-    MainWidget* mainWidgetInstance = nullptr;
+    SmpDrawer* drawerInstance = nullptr;
     QPushButton* mirrorButton = nullptr;
     QWidget* field = nullptr;
 };

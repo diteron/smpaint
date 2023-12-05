@@ -5,7 +5,7 @@
 #include <QtPlugin>
 #include <QDoubleSpinBox>
 #include "../smpaint/plugins/ismpplugin.h"
-#include "../smpaint/mainwidget.h"
+#include "../smpaint/smpdrawer.h"
 
 class ShapeScaler : public QObject, public ISmpPlugin {
     
@@ -15,7 +15,7 @@ class ShapeScaler : public QObject, public ISmpPlugin {
 
 public:
     void setupUi() override;
-    void registerMainWidget(void* mainWidgetInst) override { mainWidgetInstance = static_cast<MainWidget*>(mainWidgetInst); }
+    void registerDrawer(void * drawer) override { drawerInstance = static_cast<SmpDrawer*>(drawer); }
     void mousePress() override {};
 
     QWidget* getPluginLabel() const override { return scaleSpinBox; }
@@ -29,7 +29,7 @@ private:
                                         double minValue, double maxValue, const QString& prefix);
     void scaleShape(Shape* shape);
 
-    MainWidget* mainWidgetInstance = nullptr;
+    SmpDrawer* drawerInstance = nullptr;
     QDoubleSpinBox* scaleSpinBox = nullptr;
     QPushButton* scaleButton = nullptr;
 };

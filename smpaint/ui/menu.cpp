@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "../mainwidget.h"
+#include "../smpdrawer.h"
 #include "menu.h"
 
 SMenuBar::SMenuBar(QWidget* parent, int width) : QMenuBar(parent) {
@@ -18,8 +18,8 @@ void SMenuBar::handleOpenFile() {
         return;
     }
 
-    QVector<Shape*>& shapesList = MainWidget::instance()->getShapesList();
-    if (shapesList.size() > 0) { MainWidget::instance()->removeDrawnShapes(); }
+    QVector<Shape*>& shapesList = SmpDrawer::getInstance()->getShapesList();
+    if (shapesList.size() > 0) { SmpDrawer::getInstance()->removeDrawnShapes(); }
 
     deserializeShapesList(stream, shapesList);
     file.close();
@@ -31,7 +31,7 @@ void SMenuBar::handleSaveFile() {
     QDataStream stream(&file);
     file.open(QIODevice::WriteOnly);
 
-    QVector<Shape*>& shapesList = MainWidget::instance()->getShapesList();
+    QVector<Shape*>& shapesList = SmpDrawer::getInstance()->getShapesList();
 
     if (shapesList.isEmpty()) {
         file.close();
@@ -79,7 +79,7 @@ void SMenuBar::deserializeShapesList(QDataStream& inputStream, QVector<Shape*>& 
         if (newShape == nullptr) {
             QApplication::beep();
             QMessageBox::critical(0, "Error", "Incorrect file format!");
-            if (shapesList.size() > 0) { MainWidget::instance()->removeDrawnShapes(); }
+            if (shapesList.size() > 0) { SmpDrawer::getInstance()->removeDrawnShapes(); }
             return;
         }
         // Write shape data from a file to the new shape
@@ -87,7 +87,7 @@ void SMenuBar::deserializeShapesList(QDataStream& inputStream, QVector<Shape*>& 
         newShape->setDrawn();
         loadingShapes.append(newShape);
     }
-    MainWidget::instance()->addShapesList(loadingShapes);
+    SmpDrawer::getInstance()->addShapesList(loadingShapes);
 }
 
 void SMenuBar::serializeShapesList(QDataStream& outputStream, const QVector<Shape*>& shapesList) {

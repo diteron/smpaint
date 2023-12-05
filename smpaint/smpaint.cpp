@@ -1,13 +1,14 @@
 #include "stdafx.h"
 #include "smpaint.h"
+#include "smpdrawer.h"
 
 Smpaint::Smpaint(QWidget* parent) : QMainWindow(parent) {
-    setCentralWidget(MainWidget::instance());
-    setCentralWidget(MainWidget::instance());
-    MainWidget::instance()->setupUi(this, 1100, 620);
+    centralWidget = new MainWidget(parent);
+    setCentralWidget(centralWidget);
+    centralWidget->setupUi(this, MAIN_WND_WIDTH, MAIN_WND_HEIGHT);
 }
 
 Smpaint::~Smpaint() {
-    delete MainWidget::instance();
+    delete SmpDrawer::getInstance();
 }
 

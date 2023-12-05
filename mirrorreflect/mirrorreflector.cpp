@@ -10,16 +10,16 @@ void MirrorReflector::setupUi() {
 }
 
 void MirrorReflector::mousePress() {
-    Shape* currentShape = mainWidgetInstance->getCurrentShape();
+    Shape* currentShape = drawerInstance->getCurrentShape();
     if (currentShape->getName() != "Line") {
         QApplication::beep();
         QMessageBox::information(0, "Hint", "You should draw the line");
-        mainWidgetInstance->setCurrentPlugin(nullptr);
+        drawerInstance->setCurrentPlugin(nullptr);
         reflectedShape = nullptr;
         return;
     }
     calculateMirrorImage(currentShape);
-    mainWidgetInstance->setCurrentPlugin(nullptr);
+    drawerInstance->setCurrentPlugin(nullptr);
 }
 
 void MirrorReflector::calculateMirrorImage(Shape* mirror) {
@@ -67,16 +67,16 @@ Point MirrorReflector::reflectPoint(const Point& point,
 }
 
 void MirrorReflector::handleMirrorButtonClick() {
-    reflectedShape = mainWidgetInstance->getCurrentShape();
+    reflectedShape = drawerInstance->getCurrentShape();
     if (!reflectedShape->isDrawn()) {
         QApplication::beep();
         QMessageBox::information(0, QApplication::applicationName(), "Select the drawn shape");
-        mainWidgetInstance->setCurrentPlugin(nullptr);
+        drawerInstance->setCurrentPlugin(nullptr);
         reflectedShape = nullptr;
         return;
     }
 
     QApplication::beep();
     QMessageBox::information(0, QApplication::applicationName(), "Draw a line to create a mirror image");
-    mainWidgetInstance->setCurrentPlugin(this);
+    drawerInstance->setCurrentPlugin(this);
 }

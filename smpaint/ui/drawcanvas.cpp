@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "../mainwidget.h"
+#include "../smpdrawer.h"
 #include "drawcanvas.h"
 
 DrawCanvas::DrawCanvas(QWidget* parent, const QRect& startGeometry,
@@ -29,22 +29,22 @@ void DrawCanvas::setResizable() {
 }
 
 void DrawCanvas::mousePressEvent(QMouseEvent* event) {
-    Shape* drawingShape = MainWidget::instance()->getCurrentShape();
+    Shape* drawingShape = SmpDrawer::getInstance()->getCurrentShape();
     drawingShape->setCenter(event->pos());
 
     if (drawingShape->calculatePoints()) {
-        ISmpPlugin* currentPlugin = MainWidget::instance()->getCurrentPlugin();
+        ISmpPlugin* currentPlugin = SmpDrawer::getInstance()->getCurrentPlugin();
         if (currentPlugin) {
             currentPlugin->mousePress();
             this->update();
         }
         else {
             if (!drawingShape->isDrawn()) {
-                MainWidget::instance()->addNewShape(drawingShape);
+                SmpDrawer::getInstance()->addNewShape(drawingShape);
                 drawingShape->setDrawn();
             }
-            Shape* lastShape = MainWidget::instance()->getLastShape();
-            MainWidget::instance()->setCurrentShape(lastShape->getName(),           // Create a new current shape
+            Shape* lastShape = SmpDrawer::getInstance()->getLastShape();
+            SmpDrawer::getInstance()->setCurrentShape(lastShape->getName(),           // Create a new current shape
                                                     lastShape->getData(),           // with data from the last drawn shape
                                                     lastShape->getBorderColor());
         }
@@ -52,7 +52,7 @@ void DrawCanvas::mousePressEvent(QMouseEvent* event) {
 }
 
 void DrawCanvas::mouseMoveEvent(QMouseEvent* event) {
-    Shape* movingShape = MainWidget::instance()->getCurrentShape();
+    Shape* movingShape = SmpDrawer::getInstance()->getCurrentShape();
     if (movingShape->isDrawn()) { return; }
 
     movingShape->setCenter(event->pos());
@@ -65,13 +65,13 @@ void DrawCanvas::mouseMoveEvent(QMouseEvent* event) {
 void DrawCanvas::paintEvent(QPaintEvent* event) {
     QPainter painter(this);
     painter.begin(this);
-    drawShapes(painter, MainWidget::instance()->getShapesList());
+    drawShapes(painter, SmpDrawer::getInstance()->getShapesList());
     painter.end();
 }
 
 void DrawCanvas::drawShapes(QPainter& painter, const QVector<Shape*>& shapes) {
     // Draw the current shape
-    Shape* currentShape = MainWidget::instance()->getCurrentShape();
+    Shape* currentShape = SmpDrawer::getInstance()->getCurrentShape();
     if (!currentShape->isDrawn()) {
         QPen pen = createPen(1, Qt::SolidLine, currentShape->getBorderColor());
         painter.setPen(pen);

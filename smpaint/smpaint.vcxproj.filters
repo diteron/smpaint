@@ -42,9 +42,6 @@
     <Filter Include="Header Files\plugins">
       <UniqueIdentifier>{8a4cd2dd-1b4b-47dd-a806-103d50be3f07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Include Files">
-      <UniqueIdentifier>{2c16564a-3331-45d4-a1a2-600cf9dda5dd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\plugins">
       <UniqueIdentifier>{01aa7c8d-478a-4f64-a62c-b4e2d1733a85}</UniqueIdentifier>
     </Filter>
@@ -68,9 +65,6 @@
       <Filter>Source Files\core</Filter>
     </ClCompile>
     <ClCompile Include="smpaint.cpp">
-      <Filter>Source Files\core</Filter>
-    </ClCompile>
-    <ClCompile Include="mainwidget.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
@@ -99,6 +93,12 @@
     </ClCompile>
     <ClCompile Include="plugins\pluginloader.cpp">
       <Filter>Source Files\plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="smpdrawer.cpp">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\mainwidget.cpp">
+      <Filter>Source Files\ui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -152,16 +152,14 @@
     <QtMoc Include="ui\drawcanvas.h">
       <Filter>Header Files\ui</Filter>
     </QtMoc>
-    <QtMoc Include="mainwidget.h">
-      <Filter>Header Files\core</Filter>
-    </QtMoc>
     <QtMoc Include="ui\menu.h">
       <Filter>Header Files\ui</Filter>
     </QtMoc>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="plugins\ISmpPlugin">
-      <Filter>Include Files</Filter>
-    </None>
+    <QtMoc Include="smpdrawer.h">
+      <Filter>Header Files\core</Filter>
+    </QtMoc>
+    <QtMoc Include="ui\mainwidget.h">
+      <Filter>Header Files\ui</Filter>
+    </QtMoc>
   </ItemGroup>
 </Project>

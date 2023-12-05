@@ -4,7 +4,7 @@
 #include <QPushButton>
 #include <QtPlugin>
 #include "../smpaint/plugins/ismpplugin.h"
-#include "../smpaint/mainwidget.h"
+#include "../smpaint/smpdrawer.h"
 
 class SmpColorizer : public QObject, public ISmpPlugin {
 
@@ -14,7 +14,7 @@ class SmpColorizer : public QObject, public ISmpPlugin {
 
 public:
     void setupUi() override;
-    void registerMainWidget(void* mainWidgetInst) override { mainWidgetInstance = static_cast<MainWidget*>(mainWidgetInst);  }
+    void registerDrawer(void * drawer) override { drawerInstance = static_cast<SmpDrawer*>(drawer);  }
     void mousePress() override {};
 
     QWidget* getPluginLabel() const override { return colorButton; }
@@ -24,7 +24,7 @@ public slots:
     void handleColorButtonClick();
 
 private:
-    MainWidget* mainWidgetInstance = nullptr;
+    SmpDrawer* drawerInstance = nullptr;
     QPushButton* colorButton = nullptr;
     QWidget* field = nullptr;
 };

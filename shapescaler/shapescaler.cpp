@@ -34,7 +34,7 @@ void ShapeScaler::scaleShape(Shape* shape) {
 }
 
 void ShapeScaler::handleScaleButtonClick() {
-    Shape* currentShape = mainWidgetInstance->getCurrentShape();
+    Shape* currentShape = drawerInstance->getCurrentShape();
     if (!currentShape->isDrawn()) {
         QApplication::beep();
         QMessageBox::information(0, "Hint", "Select drawn shape");
@@ -42,5 +42,5 @@ void ShapeScaler::handleScaleButtonClick() {
     }
     scaleShape(currentShape);
     QApplication::beep();
-    QMessageBox::information(0, "Hint", "To redraw the shape click on the Draw Button");
+    QMessageBox::information(0, "Hint", "To redraw the shape click on the Draw button");
 }

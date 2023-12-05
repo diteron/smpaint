@@ -1,9 +1,8 @@
 #include "stdafx.h"
 #include "pluginloader.h"
 
-
-PluginsLoader::PluginsLoader(QWidget* mainWidget, QFormLayout* pluginsLayout) 
-    : _mainWidget(mainWidget), _pluginsLayout(pluginsLayout) {}
+PluginsLoader::PluginsLoader(QObject* drawer, QFormLayout* pluginsLayout)
+    : _drawer(drawer), _pluginsLayout(pluginsLayout) {}
 
 QVector<ISmpPlugin*> PluginsLoader::loadPlugins() {
     QDir pluginsDir = QDir(QCoreApplication::applicationDirPath());
@@ -22,7 +21,7 @@ QVector<ISmpPlugin*> PluginsLoader::loadPlugins() {
 void PluginsLoader::addPluginUi(QObject* plugin) {
     auto iPlugin = qobject_cast<ISmpPlugin*>(plugin);
     iPlugin->setupUi();
-    iPlugin->registerMainWidget(_mainWidget);
+    iPlugin->registerDrawer(_drawer);
     _pluginsLayout->addRow(iPlugin->getPluginLabel(), iPlugin->getPluginField());
     _pluginsList.append(iPlugin);
 }

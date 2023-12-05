@@ -58,4 +58,14 @@ private:
     QGroupBox* editPluginsGroupBox = nullptr;
 
     QSpacerItem* sideBarSpacer = nullptr;
+
+    const int SPACER_WIDTH = 20;
+    const int SPACER_HEIGHT = 40;
+    const int COMBOBOX_MAX_WIDTH = 120;
+    const int BUTTON_MAX_WIDTH = 90;
+    const int SPINBOX_MAX_WIDTH = 90;
+    const int COMBOBOX_MAX_HEIGHT = 40;
+    const int BUTTON_MAX_HEIGHT = 40;
+    const int SPINBOX_MAX_HEIGHT = 40;
+    const int GROUPBOX_MAX_HEIGHT = 16777215;
 };

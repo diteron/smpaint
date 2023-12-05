@@ -4,13 +4,13 @@
 
 class PluginsLoader {
 public:
-    PluginsLoader(QWidget* mainWidget, QFormLayout* pluginsLayout);
+    PluginsLoader(QObject* drawer, QFormLayout* pluginsLayout);
     QVector<ISmpPlugin*> loadPlugins();
 
 private:
     void addPluginUi(QObject* plugin);
 
-    QWidget* _mainWidget = nullptr;
+    QObject* _drawer = nullptr;
     QFormLayout* _pluginsLayout = nullptr;
     QVector<ISmpPlugin*> _pluginsList;
 };

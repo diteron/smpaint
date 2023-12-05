@@ -106,18 +106,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="plugins\pluginloader.cpp" />
+    <ClCompile Include="smpdrawer.cpp" />
     <ClCompile Include="ui\menu.cpp" />
     <ClCompile Include="shapes\line.cpp" />
     <ClCompile Include="shapes\parallelogram.cpp" />
     <ClCompile Include="shapes\rectangle.cpp" />
     <ClCompile Include="shapes\ellipse.cpp" />
     <ClCompile Include="shapes\isosctriangle.cpp" />
-    <ClCompile Include="mainwidget.cpp" />
+    <ClCompile Include="ui\mainwidget.cpp" />
     <ClCompile Include="shapes\shapefactory.cpp" />
     <ClCompile Include="shapes\shape.cpp" />
     <ClCompile Include="ui\drawcanvas.cpp" />
     <ClCompile Include="ui\sidebar.cpp" />
-    <QtMoc Include="mainwidget.h" />
+    <QtMoc Include="ui\mainwidget.h" />
     <QtMoc Include="ui\drawcanvas.h" />
     <QtMoc Include="ui\sidebar.h" />
     <QtMoc Include="ui\menu.h" />
@@ -133,6 +134,7 @@
     <ClInclude Include="shapes\shape.h" />
     <ClInclude Include="smpaint.h" />
     <ClInclude Include="shapes\stdafx.h" />
+    <QtMoc Include="smpdrawer.h" />
     <ClInclude Include="ui\stdafx.h" />
     <QtRcc Include="smpaint.qrc" />
     <ClCompile Include="smpaint.cpp" />
@@ -142,9 +144,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="plugins\ISmpPlugin" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

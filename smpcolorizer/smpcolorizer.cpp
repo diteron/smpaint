@@ -10,7 +10,7 @@ void SmpColorizer::setupUi() {
 }
 
 void SmpColorizer::handleColorButtonClick() {
-    Shape* currentShape = mainWidgetInstance->getCurrentShape();
+    Shape* currentShape = drawerInstance->getCurrentShape();
     if (currentShape) {
         QColor color = QColorDialog::getColor(Qt::black, nullptr);
         if (color.isValid()) { currentShape->setBorderColor(color); }
