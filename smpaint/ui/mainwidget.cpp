@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "mainwidget.h"
-#include "../smpdrawer.h"
+#include "../core/smpdrawer.h"
 
 MainWidget::MainWidget(QWidget* parent) : QWidget(parent) {}
 

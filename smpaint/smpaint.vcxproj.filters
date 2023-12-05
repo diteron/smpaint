@@ -61,13 +61,13 @@
     <ClCompile Include="shapes\shape.cpp">
       <Filter>Source Files\shapes</Filter>
     </ClCompile>
-    <ClCompile Include="stdafx.cpp">
+    <ClCompile Include="core\stdafx.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
-    <ClCompile Include="smpaint.cpp">
+    <ClCompile Include="core\smpaint.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="core\main.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
     <ClCompile Include="shapes\shapefactory.cpp">
@@ -94,7 +94,7 @@
     <ClCompile Include="plugins\pluginloader.cpp">
       <Filter>Source Files\plugins</Filter>
     </ClCompile>
-    <ClCompile Include="smpdrawer.cpp">
+    <ClCompile Include="core\smpdrawer.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
     <ClCompile Include="ui\mainwidget.cpp">
@@ -105,7 +105,7 @@
     <ClInclude Include="shapes\shape.h">
       <Filter>Header Files\shapes</Filter>
     </ClInclude>
-    <ClInclude Include="smpaint.h">
+    <ClInclude Include="core\smpaint.h">
       <Filter>Header Files\core</Filter>
     </ClInclude>
     <ClInclude Include="shapes\stdafx.h">
@@ -129,7 +129,7 @@
     <ClInclude Include="shapes\line.h">
       <Filter>Header Files\shapes</Filter>
     </ClInclude>
-    <ClInclude Include="stdafx.h">
+    <ClInclude Include="core\stdafx.h">
       <Filter>Header Files\core</Filter>
     </ClInclude>
     <ClInclude Include="ui\stdafx.h">
@@ -155,7 +155,7 @@
     <QtMoc Include="ui\menu.h">
       <Filter>Header Files\ui</Filter>
     </QtMoc>
-    <QtMoc Include="smpdrawer.h">
+    <QtMoc Include="core\smpdrawer.h">
       <Filter>Header Files\core</Filter>
     </QtMoc>
     <QtMoc Include="ui\mainwidget.h">

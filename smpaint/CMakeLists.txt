@@ -20,7 +20,7 @@ find_package(Qt6Widgets REQUIRED)
 set(SHAPES_DIR "${CMAKE_SOURCE_DIR}/shapes")
 set(UI_DIR "${CMAKE_SOURCE_DIR}/ui")
 set(PLUGINS_DIR "${CMAKE_SOURCE_DIR}/plugins")
-set(CORE_DIR "${CMAKE_SOURCE_DIR}")
+set(CORE_DIR "${CMAKE_SOURCE_DIR}/core")
 
 include_directories(${SHAPES_DIR})
 include_directories(${UI_DIR})

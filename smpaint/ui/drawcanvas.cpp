@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "../smpdrawer.h"
+#include "../core/smpdrawer.h"
 #include "drawcanvas.h"
 
 DrawCanvas::DrawCanvas(QWidget* parent, const QRect& startGeometry,

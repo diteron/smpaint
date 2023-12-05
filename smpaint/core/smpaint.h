@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ui/mainwidget.h"
+#include "../ui/mainwidget.h"
 
 #define MAIN_WND_WIDTH 1100
 #define MAIN_WND_HEIGHT 620

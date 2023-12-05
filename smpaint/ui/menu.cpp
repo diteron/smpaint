@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "../smpdrawer.h"
+#include "../core/smpdrawer.h"
 #include "menu.h"
 
 SMenuBar::SMenuBar(QWidget* parent, int width) : QMenuBar(parent) {

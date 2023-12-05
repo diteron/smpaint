@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "../SmpDrawer.h"
+#include "../core/smpdrawer.h"
 #include "sidebar.h"
 
 SideBar::SideBar(QWidget* parent, int spacing,

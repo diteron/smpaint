@@ -5,7 +5,7 @@
 #include <QtPlugin>
 #include <QDoubleSpinBox>
 #include "../smpaint/plugins/ismpplugin.h"
-#include "../smpaint/smpdrawer.h"
+#include "../smpaint/core/smpdrawer.h"
 
 class ShapeScaler : public QObject, public ISmpPlugin {
     

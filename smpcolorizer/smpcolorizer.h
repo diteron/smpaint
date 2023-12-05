@@ -4,7 +4,7 @@
 #include <QPushButton>
 #include <QtPlugin>
 #include "../smpaint/plugins/ismpplugin.h"
-#include "../smpaint/smpdrawer.h"
+#include "../smpaint/core/smpdrawer.h"
 
 class SmpColorizer : public QObject, public ISmpPlugin {
 

@@ -1,10 +1,10 @@
 #pragma once
 
-#include "ui/drawcanvas.h"
-#include "ui/sidebar.h"
-#include "shapes/shapefactory.h"
-#include "plugins/pluginloader.h"
-#include "plugins/ismpplugin.h"
+#include "../ui/drawcanvas.h"
+#include "../ui/sidebar.h"
+#include "../shapes/shapefactory.h"
+#include "../plugins/pluginloader.h"
+#include "../plugins/ismpplugin.h"
 
 class SmpDrawer : public QObject {
 
