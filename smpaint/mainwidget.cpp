@@ -6,6 +6,7 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent) {}
 MainWidget::~MainWidget() {
     if (shapesList.size() > 0) { qDeleteAll(shapesList); }
     if (currentShape != nullptr) { delete currentShape; }
+    if (pluginsLoader != nullptr) { delete pluginsLoader; }
     delete ShapeFactory::instance();
 }
 
@@ -14,6 +15,7 @@ MainWidget* MainWidget::_instance = nullptr;
 void MainWidget::setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowHeight) {
     SmpaintClass->resize(windowWidth, windowHeight);
     SmpaintClass->setMinimumSize(QSize(0, 0));
+    gridLayout = createGridLayout();
 
     // Create a resizable draw canvas with scrollbars
     scrollArea = new QScrollArea(this);
@@ -21,17 +23,17 @@ void MainWidget::setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowH
                                   QColor(255, 255, 255, 255));
     scrollArea->setWidget(drawCanvas); 
     drawCanvas->setResizable();
-
-    gridLayout = createGridLayout();
     gridLayout->addWidget(scrollArea, 0, 1, 1, 1);
 
     menuBar = new SMenuBar(this, SmpaintClass->width());
     SmpaintClass->setMenuBar(menuBar);
 
     sideBar = new SideBar(MainWidget::instance(), 20, 6, 180);
-    loadPlugins();
     sideBar->populateShapeCombobox(ShapeFactory::instance()->getShapesNames());
     gridLayout->addLayout(sideBar, 0, 0, 1, 1);
+
+    pluginsLoader = new PluginsLoader(instance(), sideBar->getEditPluginsLayout());
+    pluginsList = pluginsLoader->loadPlugins();
 }
 
 MainWidget* MainWidget::instance() {
@@ -150,32 +152,6 @@ QGridLayout* MainWidget::createGridLayout() {
     layout->setColumnStretch(0, 1);
     layout->setColumnStretch(1, 5);
     return layout;
-}
-
-void MainWidget::loadPlugins() {
-    const auto staticInstances = QPluginLoader::staticInstances();
-    for (QObject* plugin : staticInstances) {
-        addPluginUi(plugin);
-    }
-
-    QDir pluginsDir = QDir(QCoreApplication::applicationDirPath());
-    QString dirname = pluginsDir.dirName();
-    const auto dirFiles = pluginsDir.entryList(QDir::Files);
-    for (const QString& fileName : dirFiles) {
-        QPluginLoader loader(pluginsDir.absoluteFilePath(fileName));
-        QObject* plugin = loader.instance();
-        if (plugin) {
-            addPluginUi(plugin);
-        }
-    }
-}
-
-void MainWidget::addPluginUi(QObject* plugin) {
-    auto iPlugin = qobject_cast<ISmpPlugin*>(plugin);
-    iPlugin->setupUi();
-    iPlugin->registerMainWidget(instance());
-    sideBar->addEditPluginUi(iPlugin->getPluginLabel(), iPlugin->getPluginField());
-    pluginsList.append(iPlugin);
 }
 
 DrawCanvas* MainWidget::createDrawCanvas(const QRect& startGeometry, const QSize& minSize,

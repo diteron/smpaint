@@ -45,6 +45,9 @@
     <Filter Include="Include Files">
       <UniqueIdentifier>{2c16564a-3331-45d4-a1a2-600cf9dda5dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\plugins">
+      <UniqueIdentifier>{01aa7c8d-478a-4f64-a62c-b4e2d1733a85}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="smpaint.qrc">
@@ -94,6 +97,9 @@
     <ClCompile Include="ui\menu.cpp">
       <Filter>Source Files\ui</Filter>
     </ClCompile>
+    <ClCompile Include="plugins\pluginloader.cpp">
+      <Filter>Source Files\plugins</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shapes\shape.h">
@@ -133,6 +139,9 @@
       <Filter>Header Files\plugins</Filter>
     </ClInclude>
     <ClInclude Include="plugins\ismpplugin.h">
+      <Filter>Header Files\plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="plugins\pluginloader.h">
       <Filter>Header Files\plugins</Filter>
     </ClInclude>
   </ItemGroup>

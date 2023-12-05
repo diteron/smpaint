@@ -6,6 +6,7 @@
 #include "shapes/shape.h"
 #include "shapes/shapefactory.h"
 #include "plugins/ismpplugin.h"
+#include "plugins/pluginLoader.h"
 
 class MainWidget : public QWidget {
 
@@ -46,8 +47,6 @@ public slots:
 private:
     QGridLayout* createGridLayout();
     const QStringList getShapesNames();
-    void loadPlugins();
-    void addPluginUi(QObject* plugin);
     DrawCanvas* createDrawCanvas(const QRect& startGeometry, const QSize& minSize,
                                  const QColor& backgroundColor);
     QSizePolicy createExpandSizePolicy(int horizontalStretch, int verticalStretch);
@@ -64,6 +63,7 @@ private:
     QVector<Shape*> shapesList;
     Shape* currentShape = nullptr;
 
+    PluginsLoader* pluginsLoader = nullptr;
     ISmpPlugin* currentPlugin = nullptr;
     QVector<ISmpPlugin*> pluginsList;
 };

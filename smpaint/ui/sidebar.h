@@ -16,6 +16,7 @@ public:
     void createShapeDataFields(Shape* shape);
     void setCurrentShape(const QString& shapeName);
     void setShapeCoordinates(const Point& center);
+    QFormLayout* getEditPluginsLayout();
     void addEditPluginUi(QWidget* label, QWidget* field);
 
 public slots:

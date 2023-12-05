@@ -19,12 +19,10 @@ void SideBar::populateShapeCombobox(const QStringList& items) {
 
 void SideBar::addDrawnShape(const QString& shapeName) {
     drawnShapesComboBox->insertItem(0, shapeName);
-    drawnShapesComboBox->setCurrentIndex(-1);
 }
 
 void SideBar::addDrawnShapes(const QStringList shapesNames) {
     drawnShapesComboBox->addItems(shapesNames);
-    drawnShapesComboBox->setCurrentIndex(-1);
 }
 
 void SideBar::clearDrawnShapes() {
@@ -38,6 +36,10 @@ void SideBar::setShapeCoordinates(const Point& center) {
 
 void SideBar::setCurrentShape(const QString& shapeName) {
     shapesComboBox->setCurrentText(shapeName);
+}
+
+QFormLayout* SideBar::getEditPluginsLayout() {
+    return editPluginsLayout;
 }
 
 void SideBar::addEditPluginUi(QWidget* label, QWidget* field) {
