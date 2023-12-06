@@ -29,6 +29,9 @@
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EEE75E91-F017-454E-8F13-732827620E6D}</ProjectGuid>
     <Keyword>QtVS_v304</Keyword>
@@ -74,13 +77,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\plugins\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>$(SolutionDir)point;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)smpaint\core;$(SolutionDir)smpaint\plugins;$(SolutionDir)point;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(SolutionDir)$(Platform)\$(Configuration)\point.lib;%(AdditionalDependencies)</AdditionalDependencies>

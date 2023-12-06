@@ -6,9 +6,9 @@ elseif(UNIX)
     project(smpaint)
 endif()
 
-set(CMAKE_CONFIGURATION_TYPES "Release;RelWithDebInfo" CACHE STRING "" FORCE)
+set(CMAKE_CONFIGURATION_TYPES "Release" CACHE STRING "" FORCE)
 
-#======================= INCLUSION OF Qt =======================#
+#=========================== Qt setup ===========================#
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
@@ -16,49 +16,41 @@ set(CMAKE_PREFIX_PATH $ENV{QTDIR})
 find_package(Qt6Core REQUIRED)
 find_package(Qt6Widgets REQUIRED)
 
-#=================== INCLUSION OF Project Files ====================#
-set(SHAPES_DIR "${CMAKE_SOURCE_DIR}/shapes")
-set(UI_DIR "${CMAKE_SOURCE_DIR}/ui")
-set(PLUGINS_DIR "${CMAKE_SOURCE_DIR}/plugins")
-set(CORE_DIR "${CMAKE_SOURCE_DIR}/core")
-
-#include_directories(${SHAPES_DIR})
-#include_directories(${UI_DIR})
-#include_directories(${PLUGINS_DIR})
-#include_directories(${CORE_DIR})
+#=========================== Project files ===========================#
+set(SHAPES_DIR "${PROJECT_SOURCE_DIR}/shapes")
+set(UI_DIR "${PROJECT_SOURCE_DIR}/ui")
+set(PLUGINS_DIR "${PROJECT_SOURCE_DIR}/plugins")
+set(CORE_DIR "${PROJECT_SOURCE_DIR}/core")
 
 file(GLOB SRC_FILES
     "${SHAPES_DIR}/*.cpp"
-    "${SHAPES_DIR}/*.h"
     "${UI_DIR}/*.cpp"
-    "${UI_DIR}/*.h"
     "${PLUGINS_DIR}/*.cpp"
-    "${PLUGINS_DIR}/*.h"
     "${CORE_DIR}/*.cpp"
-    "${CORE_DIR}/*.h"
 )
 
-#=================== SETUP EXECTUABLE ====================#
-# Enable debug logging on RELWITHDEBINFO configuration
-set_property(DIRECTORY APPEND PROPERTY COMPILE_DEFINITIONS
-    $<$<CONFIG:RELWITHDEBINFO>:QT_MESSAGELOGCONTEXT>
-)
+include_directories(${SHAPES_DIR}
+                    ${UI_DIR}
+                    ${PLUGINS_DIR}
+                    ${CORE_DIR}
+                    ${POINT_INCLUDE_DIRS})
 
-# Add the executable
+#=========================== Executable setup ===========================#
 if (WIN32) 
-    add_executable(smpaint WIN32 ${SRC_FILES})
+    add_executable(${PROJECT_NAME} WIN32 ${SRC_FILES})
 elseif(UNIX)
-    add_executable(smpaint ${SRC_FILES})
+    add_executable(${PROJECT_NAME} ${SRC_FILES})
 endif()
 
-# Add precompiled headers
-target_precompile_headers(smpaint PRIVATE <QtWidgets>)
+target_precompile_headers(${PROJECT_NAME} PRIVATE <QtWidgets>)
+target_link_libraries(${PROJECT_NAME} Qt6::Widgets
+                                      POINT)
 
-# Add the target includes for smpaint 
-target_include_directories(smpaint PRIVATE ${SHAPES_DIR})
-target_include_directories(smpaint PRIVATE ${UI_DIR})
-target_include_directories(smpaint PRIVATE ${PLUGINS_DIR})
-target_include_directories(smpaint PRIVATE ${CORE_DIR})
+set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build/bin)
 
-#===================== LINKING LIBRARIES =======================#
-target_link_libraries(smpaint Qt6::Widgets)
+# Expose project public includes to other subprojects through cache variable.
+set(${PROJECT_NAME}_INCLUDE_DIRS ${SHAPES_DIR}
+                                 ${UI_DIR}
+                                 ${PLUGINS_DIR}
+                                 ${CORE_DIR}
+    CACHE INTERNAL "${PROJECT_NAME}: Include Directories" FORCE)

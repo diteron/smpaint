@@ -3,8 +3,8 @@
 #include <QObject>
 #include <QPushButton>
 #include <QtPlugin>
-#include "../smpaint/plugins/ismpplugin.h"
-#include "../smpaint/core/smpdrawer.h"
+#include <ismpplugin.h>
+#include <smpdrawer.h>
 
 class MirrorReflector : public QObject, public ISmpPlugin {
     Q_OBJECT

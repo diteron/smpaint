@@ -56,7 +56,7 @@ void SideBar::createShapeDataFields(Shape* shape) {
     }
 
     QVector<DataField> fields = shape->getDataFields();
-    QVector<std::pair<int, shproperty>> shapeData = shape->getData();
+    QVector<std::pair<int, Shape::property>> shapeData = shape->getData();
     for (unsigned i = 0; i < fields.size(); ++i) {
         QLabel* label = createLabel(this->parentWidget(), fields[i].getFieldName());
         QSpinBox* spinbox = createSpinBox(this->parentWidget(), 90, 0, 1000, shapeData[i].first);

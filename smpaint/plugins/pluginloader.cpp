@@ -6,6 +6,8 @@ PluginsLoader::PluginsLoader(QObject* drawer, QFormLayout* pluginsLayout)
 
 QVector<ISmpPlugin*> PluginsLoader::loadPlugins() {
     QDir pluginsDir = QDir(QCoreApplication::applicationDirPath());
+    pluginsDir.cd("plugins");
+
     QString dirname = pluginsDir.dirName();
     const auto dirFiles = pluginsDir.entryList(QDir::Files);
     for (const QString& fileName : dirFiles) {
