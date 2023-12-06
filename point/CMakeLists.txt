@@ -8,8 +8,6 @@ endif()
 
 set(CMAKE_CONFIGURATION_TYPES "Release" CACHE STRING "" FORCE)
 
-#===========================  ===========================#
-
 #=========================== Qt setup ===========================#
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
@@ -23,7 +21,7 @@ file(GLOB SRC_FILES
     "*.cpp"
 )
 
-#=========================== Executable setup ===========================#
+#=========================== Static library setup ===========================#
 if (WIN32) 
     add_library(${PROJECT_NAME} STATIC ${SRC_FILES})
 elseif(UNIX)
@@ -34,10 +32,14 @@ endif()
 set_target_properties(${PROJECT_NAME}
                       PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
+if (WIN32)
+	set_target_properties(${PROJECT_NAME} PROPERTIES ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/build/lib)
+else()
+    set_target_properties(${PROJECT_NAME} PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build/lib)
+endif()
+
 target_precompile_headers(${PROJECT_NAME} PRIVATE <QtWidgets>)
 target_link_libraries(${PROJECT_NAME} Qt6::Widgets)
-
-set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build/lib)
 
 # Expose project public includes to other subprojects through cache variable.
 set(${PROJECT_NAME}_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}

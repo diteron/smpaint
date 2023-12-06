@@ -21,25 +21,25 @@ file(GLOB SRC_FILES
     "*.cpp"
 )
 
-include_directories(${POINT_INCLUDE_DIRS}
-                    ${SMPAINT_INCLUDE_DIRS})
+include_directories(${point_INCLUDE_DIRS}
+                    ${smpaint_INCLUDE_DIRS})
 
-#=========================== Executable setup ===========================#
-if (WIN32) 
-    add_library(${PROJECT_NAME} SHARED ${SRC_FILES})
-elseif(UNIX)
-    add_library(${PROJECT_NAME} SHARED ${SRC_FILES})
-endif()
+#=========================== Shared library setup ===========================#
+add_library(${PROJECT_NAME} SHARED ${SRC_FILES})
 
 # Required on Unix OS family to be able to be linked into shared libraries.
 set_target_properties(${PROJECT_NAME}
                       PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
+if (WIN32)
+	set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/build/bin/plugins)
+else()
+	set_target_properties(${PROJECT_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build/bin/plugins)
+endif()
+
 target_precompile_headers(${PROJECT_NAME} PRIVATE <QtWidgets>)
 target_link_libraries(${PROJECT_NAME} Qt6::Widgets
-                                      POINT)
-
-set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build/bin/plugins)
+                                      point)
 
 # Expose project public includes to other subprojects through cache variable.
 set(${PROJECT_NAME}_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}
