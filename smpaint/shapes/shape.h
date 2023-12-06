@@ -59,14 +59,14 @@ protected:
 
 class DataField {
 public:
-    DataField(const char* fieldName, int defaultValue, const Shape::property property)
+    DataField(QString fieldName, int defaultValue, Shape::property property)
         : _fieldName(fieldName), _defaultValue(defaultValue), _property(property) {};
     const QString& getFieldName() { return _fieldName; };
     int getDefaultValue() { return _defaultValue; };
     Shape::property getProperty() { return _property; }
 
 private:
-    const QString _fieldName;
+    QString _fieldName;
     int _defaultValue;
-    const Shape::property _property;
+    Shape::property _property;
 };
