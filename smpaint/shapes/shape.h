@@ -10,8 +10,7 @@ class DataField;
 
 class Shape {
 public:
-    // Shape properties
-    enum {
+    enum Properties{
         Const,
         Scalable
     };
