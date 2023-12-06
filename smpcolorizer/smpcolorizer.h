@@ -14,7 +14,7 @@ class SmpColorizer : public QObject, public ISmpPlugin {
 
 public:
     void setupUi() override;
-    void registerDrawer(void * drawer) override { drawerInstance = static_cast<SmpDrawer*>(drawer);  }
+    void registerDrawer(void* drawer) override { drawerInstance = static_cast<SmpDrawer*>(drawer);  }
     void mousePress() override {};
 
     QWidget* getPluginLabel() const override { return colorButton; }

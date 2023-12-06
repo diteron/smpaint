@@ -24,7 +24,7 @@ QDoubleSpinBox* ShapeScaler::createDoubleSpinBox(int precision, double step, dou
 }
 
 void ShapeScaler::scaleShape(Shape* shape) {
-    QVector<std::pair<int, shproperty>> shapeData = shape->getData();
+    QVector<std::pair<int, Shape::property>> shapeData = shape->getData();
     double scale = scaleSpinBox->value();
     for (auto& dataValue : shapeData) {
         if (dataValue.second == Shape::Const) { continue; }

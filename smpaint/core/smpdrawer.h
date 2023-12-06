@@ -20,7 +20,7 @@ public:
     void loadPlugins();
 
     void setCurrentShape(QString shapeName);
-    void setCurrentShape(QString shapeName, const QVector<std::pair<int, shproperty>>& shapeData,
+    void setCurrentShape(QString shapeName, const QVector<std::pair<int, Shape::property>>& shapeData,
                          const QColor& borderColor);
     void setCurrentShape(Shape* shape);
     void setCurrentPlugin(ISmpPlugin* plugin) { currentPlugin = plugin; }

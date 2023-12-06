@@ -37,7 +37,7 @@ void SmpDrawer::setCurrentShape(QString shapeName) {
     sideBar->setShapeCoordinates(currentShape->getCenter());
 }
 
-void SmpDrawer::setCurrentShape(QString shapeName, const QVector<std::pair<int, shproperty>>& shapeData,
+void SmpDrawer::setCurrentShape(QString shapeName, const QVector<std::pair<int, Shape::property>>& shapeData,
                                 const QColor& borderColor) {
     if (currentShape != nullptr && !currentShape->isDrawn()) {
         delete currentShape;

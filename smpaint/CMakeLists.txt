@@ -22,10 +22,10 @@ set(UI_DIR "${CMAKE_SOURCE_DIR}/ui")
 set(PLUGINS_DIR "${CMAKE_SOURCE_DIR}/plugins")
 set(CORE_DIR "${CMAKE_SOURCE_DIR}/core")
 
-include_directories(${SHAPES_DIR})
-include_directories(${UI_DIR})
-include_directories(${PLUGINS_DIR})
-include_directories(${CORE_DIR})
+#include_directories(${SHAPES_DIR})
+#include_directories(${UI_DIR})
+#include_directories(${PLUGINS_DIR})
+#include_directories(${CORE_DIR})
 
 file(GLOB SRC_FILES
     "${SHAPES_DIR}/*.cpp"
