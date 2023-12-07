@@ -82,6 +82,7 @@ void SideBar::createSelectArea(int spacing) {
     drawnShapesComboBox = createCombobox(this->parentWidget(), COMBOBOX_MAX_WIDTH);
     drawnShapesComboBox->connect(drawnShapesComboBox, &QComboBox::activated,
                                  SmpDrawer::getInstance(), &SmpDrawer::selectDrawnShape);
+    drawnShapesComboBox->setStyleSheet("combobox-popup: 0;");
     selectLayout->addRow(drawnShapesLabel, drawnShapesComboBox);
 
     deleteButton = createPushButton(this->parentWidget(), "Delete shape", BUTTON_MAX_WIDTH);

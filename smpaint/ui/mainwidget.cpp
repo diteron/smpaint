@@ -11,7 +11,7 @@ void MainWidget::setupUi(QMainWindow* SmpaintClass, int windowWidth, int windowH
     SmpaintClass->setMenuBar(menuBar);
     createGridLayout();
     createDrawCanvas(QRect(0, 0, DRAWCANV_WIDTH, DRAWCANV_HEIGHT),
-                     QSize(DRAWCANV_MIN_WIDTH, DRAWCANV_HEIGHT), Qt::white);
+                     QSize(DRAWCANV_MIN_WIDTH, DRAWCANV_MIN_HEIGHT), Qt::white);
     createSideBar();
     SmpDrawer::getInstance()->loadPlugins();
 }

@@ -30,9 +30,9 @@ private:
 
     const int DRAWCANV_WIDTH = 850;
     const int DRAWCANV_HEIGHT = 550;
-    const int DRAWCANV_MAX_WIDTH = 100;
-    const int DRAWCANV_MIN_WIDTH = 50;
-    const int SIDE_BAR_MAX_WIDTH = 180;
+    const int DRAWCANV_MIN_WIDTH = 100;
+    const int DRAWCANV_MIN_HEIGHT = 50;
+    const int SIDE_BAR_MAX_WIDTH = 200;
     const int SIDE_BAR_SPACING = 20;
     const int LAYOUTS_ITEMS_SPACING = 8;
     const int CONT_MARGINS = 11;
