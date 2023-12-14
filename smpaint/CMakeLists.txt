@@ -46,11 +46,7 @@ target_precompile_headers(${PROJECT_NAME} PRIVATE <QtWidgets>)
 target_link_libraries(${PROJECT_NAME} Qt6::Widgets
                                       point)
 
-if (WIN32)
-	set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/build/bin)
-else()
-	set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build/bin)
-endif()
+set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/build/bin)
 
 # Expose project public includes to other subprojects through cache variable.
 set(${PROJECT_NAME}_INCLUDE_DIRS ${SHAPES_DIR}
