@@ -1,5 +1,7 @@
 # Simple paint
 
+Tested on Windows and Linux
+
 Requirements:
 * Qt 6.6.0
 * cmake 3.14
