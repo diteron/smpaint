@@ -1,6 +1,6 @@
 # Simple paint
 
-Tested on Windows and Linux
+Works on Windows and Linux
 
 Requirements:
 * Qt 6.6.0
